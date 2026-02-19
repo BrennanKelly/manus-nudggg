@@ -84,3 +84,8 @@
 - [ ] Optimize onboarding to deliver value in <3 minutes
 - [ ] Add immediate first win in onboarding
 - [ ] Create celebration animation for onboarding completion
+
+
+## Bug Fixes
+- [x] Fix 404 error for favicon.ico
+- [x] Fix 403 error for index.css
