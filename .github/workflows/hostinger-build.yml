@@ -11,11 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -24,12 +22,41 @@ jobs:
         run: |
           npm install --legacy-peer-deps
           npm run build
+          echo "---- client folder after build ----"
+          ls -la
+          echo "---- client/dist ----"
+          ls -la dist || true
+          echo "---- client/build ----"
+          ls -la build || true
 
-      - name: Push dist to hostinger branch
+      - name: Prepare deploy folder from build output
         run: |
           rm -rf out
           mkdir out
-          cp -R client/dist/* out/
+
+          # Prefer Vite default output
+          if [ -d "client/dist" ]; then
+            cp -R client/dist/* out/
+          # Some setups output build/
+          elif [ -d "client/build" ]; then
+            cp -R client/build/* out/
+          # If the output is dist/ at repo root (rare, but possible)
+          elif [ -d "dist" ]; then
+            cp -R dist/* out/
+          else
+            echo "ERROR: Could not find build output folder. Looked for client/dist, client/build, dist"
+            echo "Repo root:"
+            ls -la
+            echo "Client:"
+            ls -la client
+            exit 1
+          fi
+
+          echo "---- out folder ----"
+          ls -la out
+
+      - name: Push out/ to hostinger branch
+        run: |
           cd out
           git init
           git config user.name "github-actions"
