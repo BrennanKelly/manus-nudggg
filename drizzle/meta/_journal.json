@@ -15,6 +15,20 @@
       "when": 1771460255433,
       "tag": "0001_fat_jasper_sitwell",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1771463793293,
+      "tag": "0002_slim_golden_guardian",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1771463821845,
+      "tag": "0003_motionless_rockslide",
+      "breakpoints": true
     }
   ]
 }

@@ -1,10 +1,17 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, date, json, boolean } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, date } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
+ * Extend this file with additional tables as your product grows.
+ * Columns use camelCase to match both database fields and generated types.
  */
 export const users = mysqlTable("users", {
+  /**
+   * Surrogate primary key. Auto-incremented numeric value managed by the database.
+   * Use this for relations between tables.
+   */
   id: int("id").autoincrement().primaryKey(),
+  /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
@@ -18,24 +25,18 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-/**
- * User profile with onboarding preferences
- */
+// User profiles with preferences and streak tracking
 export const userProfiles = mysqlTable("user_profiles", {
   id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-  timezone: varchar("timezone", { length: 100 }).default("UTC"),
-  motivationStyle: varchar("motivationStyle", { length: 50 }).default("supportive"),
-  quietHoursStart: varchar("quietHoursStart", { length: 5 }),
-  quietHoursEnd: varchar("quietHoursEnd", { length: 5 }),
-  onboardingComplete: boolean("onboardingComplete").default(false).notNull(),
-  preferredNudgeTimes: json("preferredNudgeTimes").$type<string[]>(),
-  frictionPoints: text("frictionPoints"),
-  whyMissingSocial: text("whyMissingSocial"),
+  userId: int("userId").notNull(),
+  bio: text("bio"),
+  focusAreas: text("focusAreas"), // JSON array of focus areas
+  preferredNotificationTime: varchar("preferredNotificationTime", { length: 5 }), // HH:MM format
   currentStreak: int("currentStreak").default(0).notNull(),
   longestStreak: int("longestStreak").default(0).notNull(),
   lastCheckInDate: date("lastCheckInDate"),
   streakFreezeAvailable: boolean("streakFreezeAvailable").default(true).notNull(),
+  streakFreezeUsedThisWeek: boolean("streakFreezeUsedThisWeek").default(false).notNull(),
   totalCheckIns: int("totalCheckIns").default(0).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
@@ -44,18 +45,16 @@ export const userProfiles = mysqlTable("user_profiles", {
 export type UserProfile = typeof userProfiles.$inferSelect;
 export type InsertUserProfile = typeof userProfiles.$inferInsert;
 
-/**
- * User goals
- */
+// Goals table
 export const goals = mysqlTable("goals", {
   id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-  title: text("title").notNull(),
-  category: varchar("category", { length: 100 }),
-  whyItMatters: text("whyItMatters"),
+  userId: int("userId").notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description"),
+  category: varchar("category", { length: 100 }), // e.g., "health", "career", "relationships"
   targetDate: date("targetDate"),
-  priority: int("priority").default(1),
-  status: mysqlEnum("status", ["active", "paused", "completed"]).default("active").notNull(),
+  status: mysqlEnum("status", ["active", "completed", "archived"]).default("active").notNull(),
+  progress: int("progress").default(0), // 0-100 percentage
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -63,16 +62,15 @@ export const goals = mysqlTable("goals", {
 export type Goal = typeof goals.$inferSelect;
 export type InsertGoal = typeof goals.$inferInsert;
 
-/**
- * User habits
- */
+// Habits table
 export const habits = mysqlTable("habits", {
   id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-  name: text("name").notNull(),
+  userId: int("userId").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
   frequencyType: mysqlEnum("frequencyType", ["daily", "weekly"]).default("daily").notNull(),
-  frequencyCount: int("frequencyCount").default(1),
-  reminderTime: varchar("reminderTime", { length: 5 }),
+  frequencyCount: int("frequencyCount").default(1), // e.g., 3 times per week
+  reminderTime: varchar("reminderTime", { length: 5 }), // HH:MM format
   status: mysqlEnum("status", ["active", "paused", "completed"]).default("active").notNull(),
   currentStreak: int("currentStreak").default(0).notNull(),
   longestStreak: int("longestStreak").default(0).notNull(),
@@ -84,13 +82,11 @@ export const habits = mysqlTable("habits", {
 export type Habit = typeof habits.$inferSelect;
 export type InsertHabit = typeof habits.$inferInsert;
 
-/**
- * Habit completion logs
- */
+// Habit logs table
 export const habitLogs = mysqlTable("habit_logs", {
   id: int("id").autoincrement().primaryKey(),
-  habitId: int("habitId").notNull().references(() => habits.id, { onDelete: "cascade" }),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  habitId: int("habitId").notNull(),
+  userId: int("userId").notNull(),
   completedAt: timestamp("completedAt").defaultNow().notNull(),
   note: text("note"),
 });
@@ -98,15 +94,13 @@ export const habitLogs = mysqlTable("habit_logs", {
 export type HabitLog = typeof habitLogs.$inferSelect;
 export type InsertHabitLog = typeof habitLogs.$inferInsert;
 
-/**
- * Journal entries
- */
+// Journal entries table
 export const journals = mysqlTable("journals", {
   id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-  entryText: text("entryText").notNull(),
-  moodScore: int("moodScore"),
-  imageUrl: text("imageUrl"),
+  userId: int("userId").notNull(),
+  content: text("content").notNull(),
+  mood: mysqlEnum("mood", ["great", "good", "okay", "bad", "terrible"]),
+  tags: text("tags"), // JSON array of tags
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -114,32 +108,27 @@ export const journals = mysqlTable("journals", {
 export type Journal = typeof journals.$inferSelect;
 export type InsertJournal = typeof journals.$inferInsert;
 
-/**
- * AI-generated journal reflections
- */
-export const journalAI = mysqlTable("journal_ai", {
+// AI reflections on journal entries
+export const journalReflections = mysqlTable("journal_reflections", {
   id: int("id").autoincrement().primaryKey(),
-  journalId: int("journalId").notNull().references(() => journals.id, { onDelete: "cascade" }),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-  reflectionText: text("reflectionText").notNull(),
-  themes: json("themes").$type<string[]>(),
-  sentiment: json("sentiment").$type<{ score: number; label: string }>(),
+  journalId: int("journalId").notNull(),
+  userId: int("userId").notNull(),
+  reflection: text("reflection").notNull(),
+  insights: text("insights"), // JSON array of key insights
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
-export type JournalAI = typeof journalAI.$inferSelect;
-export type InsertJournalAI = typeof journalAI.$inferInsert;
+export type JournalReflection = typeof journalReflections.$inferSelect;
+export type InsertJournalReflection = typeof journalReflections.$inferInsert;
 
-/**
- * Nudge settings per user
- */
+// Nudge settings table
 export const nudgeSettings = mysqlTable("nudge_settings", {
   id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }).unique(),
+  userId: int("userId").notNull(),
   enabled: boolean("enabled").default(true).notNull(),
-  cadence: json("cadence").$type<{ daily?: boolean; weekly?: boolean }>(),
-  preferredTimes: json("preferredTimes").$type<string[]>(),
-  style: varchar("style", { length: 50 }).default("supportive"),
+  frequency: mysqlEnum("frequency", ["low", "medium", "high"]).default("medium").notNull(),
+  preferredTimes: text("preferredTimes"), // JSON array of preferred times
+  nudgeTypes: text("nudgeTypes"), // JSON array of enabled nudge types
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -147,46 +136,38 @@ export const nudgeSettings = mysqlTable("nudge_settings", {
 export type NudgeSetting = typeof nudgeSettings.$inferSelect;
 export type InsertNudgeSetting = typeof nudgeSettings.$inferInsert;
 
-/**
- * Notification/nudge log
- */
-export const notificationLog = mysqlTable("notification_log", {
+// Notification logs table
+export const notificationLogs = mysqlTable("notification_logs", {
   id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
-  nudgeType: varchar("nudgeType", { length: 50 }).notNull(),
-  triggerReason: text("triggerReason"),
-  content: text("content").notNull(),
-  channel: varchar("channel", { length: 50 }).default("in-app").notNull(),
-  sentAt: timestamp("sentAt").defaultNow().notNull(),
-  openedAt: timestamp("openedAt"),
-  actionTaken: json("actionTaken").$type<{ type: string; timestamp: number }>(),
+  userId: int("userId").notNull(),
+  type: varchar("type", { length: 50 }).notNull(), // e.g., "nudge", "reminder", "milestone"
+  title: varchar("title", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  read: boolean("read").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
-export type NotificationLog = typeof notificationLog.$inferSelect;
-export type InsertNotificationLog = typeof notificationLog.$inferInsert;
+export type NotificationLog = typeof notificationLogs.$inferSelect;
+export type InsertNotificationLog = typeof notificationLogs.$inferInsert;
 
-/**
- * Daily check-ins for streak tracking
- */
+// Daily check-ins table (new for streak tracking)
 export const dailyCheckIns = mysqlTable("daily_check_ins", {
   id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userId: int("userId").notNull(),
   checkInDate: date("checkInDate").notNull(),
   mood: mysqlEnum("mood", ["great", "good", "okay", "bad", "terrible"]),
-  habitLoggedId: int("habitLoggedId"),
-  journalNote: text("journalNote"),
+  habitLoggedId: int("habitLoggedId"), // Optional: which habit was logged
+  journalNote: text("journalNote"), // Optional: quick 1-sentence journal
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
 export type DailyCheckIn = typeof dailyCheckIns.$inferSelect;
 export type InsertDailyCheckIn = typeof dailyCheckIns.$inferInsert;
 
-/**
- * Streak milestones achieved by users
- */
+// Streak milestones table
 export const streakMilestones = mysqlTable("streak_milestones", {
   id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userId: int("userId").notNull(),
   milestoneType: mysqlEnum("milestoneType", ["7day", "14day", "30day", "60day", "100day", "365day"]).notNull(),
   achievedAt: timestamp("achievedAt").defaultNow().notNull(),
   celebrated: boolean("celebrated").default(false).notNull(),
