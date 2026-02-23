@@ -112,3 +112,14 @@
 - [ ] Create product bundles (e.g., "Strength Starter Kit")
 - [x] Implement personalized filtering based on user's goals/habits
 - [x] Add "because you said..." personalization copy
+
+
+## Phase 15: Hostinger Deployment Setup
+- [x] Analyze repo structure and confirm Vite app location
+- [x] Create GitHub Actions workflow for automated deployment
+- [x] Configure build process to output static files
+- [x] Set up SFTP deployment to Hostinger public_html
+- [x] Add .htaccess for SPA routing
+- [x] Create DEPLOYMENT.md documentation
+- [x] Add staging branch workflow (optional)
+- [ ] Test deployment and verify nudggg.com loads correctly

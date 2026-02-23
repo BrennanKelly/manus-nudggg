@@ -1,0 +1,62 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Install pnpm
+        run: npm install -g pnpm@10.4.1
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Build Vite app (client-side only)
+        run: pnpm run build:client
+        env:
+          NODE_ENV: production
+      
+      - name: Verify build output
+        run: |
+          echo "Checking build output..."
+          ls -la dist/public/
+          if [ ! -f "dist/public/index.html" ]; then
+            echo "ERROR: index.html not found in build output!"
+            exit 1
+          fi
+          echo "Build verification passed ✓"
+      
+      - name: Deploy to Hostinger via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          local-dir: ./dist/public/
+          server-dir: /public_html/
+          dangerous-clean-slate: true  # Wipe old files before upload
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.DS_Store
+      
+      - name: Deployment complete
+        run: |
+          echo "✓ Deployment successful!"
+          echo "Site should be live at https://nudggg.com"
