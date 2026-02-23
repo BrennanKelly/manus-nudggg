@@ -34,12 +34,15 @@ export const appRouter = router({
         preferredNudgeTimes: z.array(z.string()).optional(),
         frictionPoints: z.string().optional(),
         whyMissingSocial: z.string().optional(),
+        selectedCategories: z.array(z.string()).optional(),
+        confidenceLevel: z.number().optional(),
+        biggestObstacle: z.string().optional(),
+        onboardingComplete: z.boolean().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         await db.createUserProfile({
           userId: ctx.user.id,
           ...input,
-          onboardingComplete: true,
         });
         return { success: true };
       }),
@@ -76,7 +79,7 @@ export const appRouter = router({
     create: protectedProcedure
       .input(z.object({
         title: z.string().min(1),
-        category: z.string().optional(),
+        category: z.string().min(1),
         whyItMatters: z.string().optional(),
         targetDate: z.string().optional(),
         priority: z.number().optional(),
@@ -85,7 +88,7 @@ export const appRouter = router({
         await db.createGoal({
           userId: ctx.user.id,
           title: input.title,
-          category: input.category || null,
+          category: input.category,
           whyItMatters: input.whyItMatters || null,
           targetDate: input.targetDate ? new Date(input.targetDate) : null,
           priority: input.priority || 1,
@@ -136,8 +139,11 @@ export const appRouter = router({
     create: protectedProcedure
       .input(z.object({
         name: z.string().min(1),
-        frequencyType: z.enum(["daily", "weekly"]).optional(),
+        goalId: z.number().optional(),
+        frequencyType: z.enum(["daily", "weekly", "custom"]).optional(),
         frequencyCount: z.number().optional(),
+        scheduledDays: z.array(z.number()).optional(),
+        timePreference: z.enum(["morning", "afternoon", "evening", "flexible"]).optional(),
         reminderTime: z.string().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
@@ -146,6 +152,48 @@ export const appRouter = router({
           ...input,
         });
         return { success: true };
+      }),
+    
+    generateSuggestions: protectedProcedure
+      .input(z.object({
+        goalTitle: z.string(),
+        category: z.string(),
+        whyItMatters: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const prompt = `You are a habit formation expert. Generate 3 specific, actionable habit suggestions for this goal:
+
+Goal: ${input.goalTitle}
+Category: ${input.category}
+${input.whyItMatters ? `Why it matters: ${input.whyItMatters}` : ""}
+
+For each habit:
+1. Make it concrete and measurable
+2. Keep it small enough to do consistently (2-minute rule)
+3. Explain briefly why this habit supports the goal
+
+Return ONLY a JSON array with this structure:
+[{"name": "habit name", "reasoning": "why this helps"}]
+
+No markdown, no extra text, just the JSON array.`;
+
+        try {
+          const response = await invokeLLM({
+            messages: [
+              { role: "system", content: "You are a habit formation expert. Always return valid JSON only." },
+              { role: "user", content: prompt },
+            ],
+          });
+
+          const content = response.choices[0]?.message?.content || "[]";
+          const contentStr = typeof content === 'string' ? content : JSON.stringify(content);
+          const suggestions = JSON.parse(contentStr.trim());
+          
+          return { suggestions: suggestions.slice(0, 3) };
+        } catch (error) {
+          console.error("Failed to generate suggestions:", error);
+          return { suggestions: [] };
+        }
       }),
     
     update: protectedProcedure
@@ -329,6 +377,70 @@ export const appRouter = router({
         await db.markNotificationOpened(input.id, ctx.user.id);
         return { success: true };
       }),
+  }),
+
+  // Amazon Storefront
+  storefront: router({
+    getRecommendations: protectedProcedure.query(async ({ ctx }) => {
+      // Get user's goals and habits
+      const goals = await db.getUserGoals(ctx.user.id);
+      const habits = await db.getUserHabits(ctx.user.id);
+      const profile = await db.getUserProfile(ctx.user.id);
+      
+      // Get all products
+      const allProducts = await db.getAllStorefrontProducts();
+      
+      // Extract user's categories and keywords
+      const userCategories = new Set(goals.map(g => g.category));
+      const userKeywords = new Set([
+        ...goals.map(g => g.title.toLowerCase().split(' ')).flat(),
+        ...habits.map(h => h.name.toLowerCase().split(' ')).flat(),
+        ...(profile?.selectedCategories || []),
+      ]);
+      
+      // Score and personalize products
+      const scoredProducts = allProducts.map(product => {
+        let score = 0;
+        const matchedGoals: string[] = [];
+        
+        // Match by category
+        if (userCategories.has(product.category)) {
+          score += 10;
+        }
+        
+        // Match by tags
+        const productTags = product.tags || [];
+        productTags.forEach(tag => {
+          if (userKeywords.has(tag.toLowerCase())) {
+            score += 5;
+          }
+        });
+        
+        // Find matching goals
+        goals.forEach(goal => {
+          if (goal.category === product.category) {
+            matchedGoals.push(goal.title);
+          }
+        });
+        
+        return {
+          ...product,
+          personalized: score > 0,
+          matchedGoals,
+          score,
+        };
+      });
+      
+      // Sort by score (highest first)
+      return scoredProducts.sort((a, b) => b.score - a.score);
+    }),
+    
+    getCategories: protectedProcedure.query(async () => {
+      const products = await db.getAllStorefrontProducts();
+      const categorySet = new Set(products.map((p: any) => p.category));
+      const categories = Array.from(categorySet);
+      return categories;
+    }),
   }),
 });
 

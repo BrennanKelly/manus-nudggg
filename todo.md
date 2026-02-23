@@ -89,3 +89,26 @@
 ## Bug Fixes
 - [x] Fix 404 error for favicon.ico
 - [x] Fix 403 error for index.css
+
+## Phase 13: Onboarding Redesign & Goal→Habit→Nudge Engine
+- [x] Create "Why Nudggg exists" intro screen with exciting copy
+- [x] Build category assessment with 7-10 checkboxes (multi-select)
+- [x] Implement goal expansion for each selected category
+- [x] Add "Why does this matter?" field for each goal
+- [x] Create habit suggestion system based on goal/category
+- [x] Build frequency selector (2x/wk, 3x/wk, 4x/wk, daily, custom)
+- [x] Implement smart day-of-week scheduling with suggestions
+- [x] Add time preference selector (morning/afternoon/evening)
+- [x] Create "this week" quick-start scheduling
+- [x] Auto-generate nudges/tasks from scheduled habits
+- [x] Link habits to goals in database (goal_id foreign key)
+
+## Phase 14: Amazon Storefront (Curated v1)
+- [x] Create "Storefront" / "Gear" / "Tools" tab
+- [x] Build curated product database with manual curation
+- [x] Map products to categories, goals, and habits
+- [x] Design product card UI (name, link, "why it helps" copy)
+- [x] Add Amazon affiliate disclosure
+- [ ] Create product bundles (e.g., "Strength Starter Kit")
+- [x] Implement personalized filtering based on user's goals/habits
+- [x] Add "because you said..." personalization copy

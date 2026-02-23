@@ -29,6 +29,9 @@ export const userProfiles = mysqlTable("user_profiles", {
   quietHoursStart: varchar("quietHoursStart", { length: 5 }),
   quietHoursEnd: varchar("quietHoursEnd", { length: 5 }),
   onboardingComplete: boolean("onboardingComplete").default(false).notNull(),
+  selectedCategories: json("selectedCategories").$type<string[]>(),
+  confidenceLevel: int("confidenceLevel"),
+  biggestObstacle: text("biggestObstacle"),
   preferredNudgeTimes: json("preferredNudgeTimes").$type<string[]>(),
   frictionPoints: text("frictionPoints"),
   whyMissingSocial: text("whyMissingSocial"),
@@ -51,10 +54,11 @@ export const goals = mysqlTable("goals", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
   title: text("title").notNull(),
-  category: varchar("category", { length: 100 }),
+  category: varchar("category", { length: 100 }).notNull(),
   whyItMatters: text("whyItMatters"),
   targetDate: date("targetDate"),
   priority: int("priority").default(1),
+  confidenceLevel: int("confidenceLevel"),
   status: mysqlEnum("status", ["active", "paused", "completed"]).default("active").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
@@ -69,9 +73,12 @@ export type InsertGoal = typeof goals.$inferInsert;
 export const habits = mysqlTable("habits", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  goalId: int("goalId").references(() => goals.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
-  frequencyType: mysqlEnum("frequencyType", ["daily", "weekly"]).default("daily").notNull(),
-  frequencyCount: int("frequencyCount").default(1),
+  frequencyType: mysqlEnum("frequencyType", ["daily", "weekly", "custom"]).default("weekly").notNull(),
+  frequencyCount: int("frequencyCount").default(3),
+  scheduledDays: json("scheduledDays").$type<number[]>(),
+  timePreference: mysqlEnum("timePreference", ["morning", "afternoon", "evening", "flexible"]).default("flexible"),
   reminderTime: varchar("reminderTime", { length: 5 }),
   status: mysqlEnum("status", ["active", "paused", "completed"]).default("active").notNull(),
   currentStreak: int("currentStreak").default(0).notNull(),
@@ -194,3 +201,42 @@ export const streakMilestones = mysqlTable("streak_milestones", {
 
 export type StreakMilestone = typeof streakMilestones.$inferSelect;
 export type InsertStreakMilestone = typeof streakMilestones.$inferInsert;
+
+
+/**
+ * Curated Amazon products for storefront
+ */
+export const storefrontProducts = mysqlTable("storefront_products", {
+  id: int("id").autoincrement().primaryKey(),
+  name: text("name").notNull(),
+  amazonUrl: text("amazonUrl").notNull(),
+  imageUrl: text("imageUrl"),
+  price: varchar("price", { length: 20 }),
+  whyItHelps: text("whyItHelps").notNull(),
+  tags: json("tags").$type<string[]>().notNull(),
+  category: varchar("category", { length: 100 }).notNull(),
+  bundleId: int("bundleId"),
+  sortOrder: int("sortOrder").default(0),
+  active: boolean("active").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type StorefrontProduct = typeof storefrontProducts.$inferSelect;
+export type InsertStorefrontProduct = typeof storefrontProducts.$inferInsert;
+
+/**
+ * Product bundles (e.g., "Strength Starter Kit")
+ */
+export const productBundles = mysqlTable("product_bundles", {
+  id: int("id").autoincrement().primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  category: varchar("category", { length: 100 }).notNull(),
+  imageUrl: text("imageUrl"),
+  active: boolean("active").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ProductBundle = typeof productBundles.$inferSelect;
+export type InsertProductBundle = typeof productBundles.$inferInsert;

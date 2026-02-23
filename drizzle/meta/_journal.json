@@ -29,6 +29,13 @@
       "when": 1771463821845,
       "tag": "0003_motionless_rockslide",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1771542730592,
+      "tag": "0004_clumsy_drax",
+      "breakpoints": true
     }
   ]
 }

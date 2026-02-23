@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Home, Target, CheckCircle2, BookOpen, Bell, Sparkles, LogOut } from "lucide-react";
+import { Home, Target, CheckCircle2, BookOpen, Bell, Sparkles, Package, LogOut } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
@@ -21,6 +21,7 @@ export function Navigation() {
     { path: "/habits", label: "Habits", icon: CheckCircle2 },
     { path: "/journal", label: "Journal", icon: BookOpen },
     { path: "/nudges", label: "Nudges", icon: Bell },
+    { path: "/storefront", label: "Gear", icon: Package },
     { path: "/insights", label: "Insights", icon: Sparkles },
   ];
 

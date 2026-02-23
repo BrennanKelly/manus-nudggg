@@ -4,7 +4,8 @@ import {
   InsertUser, users, userProfiles, InsertUserProfile, 
   goals, InsertGoal, habits, InsertHabit, habitLogs, InsertHabitLog,
   journals, InsertJournal, journalAI, InsertJournalAI,
-  nudgeSettings, InsertNudgeSetting, notificationLog, InsertNotificationLog
+  nudgeSettings, InsertNudgeSetting, notificationLog, InsertNotificationLog,
+  storefrontProducts, InsertStorefrontProduct
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -349,4 +350,22 @@ export async function markNotificationOpened(id: number, userId: number) {
   await db.update(notificationLog)
     .set({ openedAt: new Date() })
     .where(and(eq(notificationLog.id, id), eq(notificationLog.userId, userId)));
+}
+
+
+// Storefront Products
+export async function getAllStorefrontProducts() {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db.select().from(storefrontProducts)
+    .where(eq(storefrontProducts.active, true))
+    .orderBy(storefrontProducts.sortOrder);
+}
+
+export async function createStorefrontProduct(product: InsertStorefrontProduct) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.insert(storefrontProducts).values(product);
 }
