@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -20,57 +20,41 @@ jobs:
           node-version: '22'
           cache: 'npm'
       
-      - name: Install pnpm
-        run: npm install -g pnpm@10.4.1
-      
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
       
       - name: Build Vite app
-        run: pnpm run build:client
+        run: npm run build
         env:
           NODE_ENV: production
       
       - name: Verify build output
         run: |
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "📦 Framework: Vite"
-          echo "📁 Build output: dist/public/"
+          echo "📦 Build Verification"
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
-          echo "Build output contents:"
+          echo "Build output directory contents:"
           ls -lah dist/public/
           echo ""
-          echo "Checking for required files..."
+          echo "Checking for index.html..."
           if [ ! -f "dist/public/index.html" ]; then
-            echo "❌ FATAL: index.html not found in dist/public/"
-            echo "Build failed or output directory is incorrect"
+            echo "❌ FATAL ERROR: dist/public/index.html not found!"
+            echo "Build failed or Vite config is incorrect"
             exit 1
           fi
-          echo "✅ index.html found"
-          
-          if [ ! -d "dist/public/assets" ]; then
-            echo "⚠️  WARNING: assets/ directory not found"
-          else
-            echo "✅ assets/ directory found"
-          fi
-          
-          if [ ! -f "dist/public/.htaccess" ]; then
-            echo "⚠️  WARNING: .htaccess not found (SPA routing may not work)"
-          else
-            echo "✅ .htaccess found"
-          fi
-          
+          echo "✅ dist/public/index.html exists"
           echo ""
-          echo "✅ Build verification passed"
+          echo "Files that will be deployed to /public_html:"
+          cd dist/public && find . -maxdepth 2 -type f | head -20
       
-      - name: Deploy to Hostinger via FTP
+      - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT || 21 }}
+          port: 21
           local-dir: ./dist/public/
           server-dir: /public_html/
           dangerous-clean-slate: true
@@ -85,49 +69,23 @@ jobs:
         run: |
           echo ""
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "✅ Deployment Complete!"
+          echo "✅ Deployment Complete"
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
           echo "📤 Deployed: dist/public/* → /public_html/"
-          echo "🌐 Your site should now be live"
           echo ""
-          echo "Expected file structure on Hostinger:"
+          echo "Expected structure on Hostinger:"
           echo "  /public_html/"
-          echo "  ├── index.html       ← Homepage"
-          echo "  ├── assets/          ← JS, CSS, fonts"
-          echo "  ├── .htaccess        ← SPA routing"
+          echo "  ├── index.html       ← Your homepage"
+          echo "  ├── assets/"
+          echo "  │   ├── index-*.js"
+          echo "  │   └── index-*.css"
+          echo "  ├── .htaccess"
           echo "  └── favicon.ico"
           echo ""
-          echo "Next steps:"
-          echo "  1. Visit your domain (nudggg.com)"
-          echo "  2. If you see 403, check Hostinger troubleshooting below"
-          echo "  3. Test navigation (/dashboard, /goals, etc.)"
+          echo "🌐 Visit your domain to verify"
           echo ""
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "🔧 Troubleshooting 403 Errors:"
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo ""
-          echo "If you still see 403 after deployment:"
-          echo ""
-          echo "1. Fix File Ownership (Hostinger hPanel):"
-          echo "   → Files → File Manager → public_html"
-          echo "   → Right-click → 'Fix Ownership'"
-          echo "   → This fixes permission issues from FTP upload"
-          echo ""
-          echo "2. Check File Permissions:"
-          echo "   → index.html should be 644 (rw-r--r--)"
-          echo "   → Directories should be 755 (rwxr-xr-x)"
-          echo ""
-          echo "3. Verify index.html exists:"
-          echo "   → File Manager → public_html → index.html"
-          echo "   → Should NOT be in public_html/dist/"
-          echo ""
-          echo "4. Test .htaccess:"
-          echo "   → Temporarily rename .htaccess to .htaccess.bak"
-          echo "   → Visit site - if it works, .htaccess has an error"
-          echo "   → If still 403, it's a permissions issue"
-          echo ""
-          echo "5. Check Apache error logs:"
-          echo "   → Hostinger hPanel → Advanced → Error Logs"
-          echo "   → Look for permission denied or missing file errors"
+          echo "If you see 403, run 'Fix Ownership' in Hostinger:"
+          echo "  → hPanel → Files → File Manager"
+          echo "  → Right-click public_html → Fix Ownership"
           echo ""

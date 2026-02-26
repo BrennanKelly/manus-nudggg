@@ -131,3 +131,11 @@
 - [x] Add pre-deployment directory listing
 - [x] Ensure trailing slash in local-dir for FTP-Deploy-Action
 - [x] Create Hostinger troubleshooting guide for permissions/ownership
+
+
+## Phase 17: Fix Incorrect Deployment - Uploading Entire Repo
+- [x] Change workflow to use npm ci && npm run build
+- [x] Fix local-dir to upload dist/public contents to /public_html root
+- [x] Ensure files go to /public_html root (not /public_html/manus-nudggg)
+- [x] Add pre-upload verification for dist/public/index.html
+- [x] Configure dangerous-clean-slate to clear /public_html before upload
