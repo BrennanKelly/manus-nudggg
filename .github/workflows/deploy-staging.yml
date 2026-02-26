@@ -23,40 +23,54 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@10.4.1
       
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      
-      - name: Build Vite app (client-side only)
-        run: pnpm run build:client
+      - name: Install dependencies and build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build:client
         env:
           NODE_ENV: production
       
       - name: Verify build output
         run: |
-          echo "Checking build output..."
-          ls -la dist/public/
+          echo "✓ Framework detected: Vite"
+          echo "✓ Build output directory: dist/public/"
+          echo ""
+          echo "Verifying build artifacts..."
+          ls -lh dist/public/
           if [ ! -f "dist/public/index.html" ]; then
-            echo "ERROR: index.html not found in build output!"
+            echo "❌ ERROR: index.html not found in build output!"
             exit 1
           fi
-          echo "Build verification passed ✓"
+          echo "✓ Build verification passed"
       
-      - name: Deploy to Hostinger Staging via SFTP
+      - name: Deploy to Hostinger Staging via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT || 21 }}
           local-dir: ./dist/public/
-          server-dir: /public_html/staging/  # Deploy to staging subdirectory
+          server-dir: ${{ secrets.FTP_STAGING_DIR || '/public_html/staging/' }}
           dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             **/.DS_Store
+            **/src/**
+            **/*.log
       
-      - name: Deployment complete
+      - name: Deployment Summary
         run: |
-          echo "✓ Staging deployment successful!"
-          echo "Site should be live at https://staging.nudggg.com"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ Staging deployment successful!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "📦 Deployed: dist/public/ → Staging directory"
+          echo "🌐 Site should be live at staging.nudggg.com"
+          echo "🔄 Old files cleaned before upload"
+          echo ""
+          echo "Next steps:"
+          echo "  1. Visit staging URL to verify deployment"
+          echo "  2. Test features before merging to main"

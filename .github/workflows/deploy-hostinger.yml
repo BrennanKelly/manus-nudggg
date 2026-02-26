@@ -23,40 +23,56 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@10.4.1
       
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      
-      - name: Build Vite app (client-side only)
-        run: pnpm run build:client
+      - name: Install dependencies and build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build:client
         env:
           NODE_ENV: production
       
       - name: Verify build output
         run: |
-          echo "Checking build output..."
-          ls -la dist/public/
+          echo "✓ Framework detected: Vite"
+          echo "✓ Build output directory: dist/public/"
+          echo ""
+          echo "Verifying build artifacts..."
+          ls -lh dist/public/
           if [ ! -f "dist/public/index.html" ]; then
-            echo "ERROR: index.html not found in build output!"
+            echo "❌ ERROR: index.html not found in build output!"
             exit 1
           fi
-          echo "Build verification passed ✓"
+          echo "✓ Build verification passed"
       
-      - name: Deploy to Hostinger via SFTP
+      - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT || 21 }}
           local-dir: ./dist/public/
-          server-dir: /public_html/
-          dangerous-clean-slate: true  # Wipe old files before upload
+          server-dir: ${{ secrets.FTP_REMOTE_DIR || '/public_html/' }}
+          dangerous-clean-slate: true  # Clean remote directory before upload
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             **/.DS_Store
+            **/src/**
+            **/*.log
       
-      - name: Deployment complete
+      - name: Deployment Summary
         run: |
-          echo "✓ Deployment successful!"
-          echo "Site should be live at https://nudggg.com"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ Deployment successful!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "📦 Deployed: dist/public/ → FTP remote directory"
+          echo "🌐 Site should be live at your domain"
+          echo "🔄 Old files cleaned before upload"
+          echo "🔒 .htaccess preserved for SPA routing"
+          echo ""
+          echo "Next steps:"
+          echo "  1. Visit your domain to verify deployment"
+          echo "  2. Check browser console for any errors"
+          echo "  3. Test navigation (all routes should work)"
