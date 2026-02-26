@@ -122,4 +122,12 @@
 - [x] Add .htaccess for SPA routing
 - [x] Create DEPLOYMENT.md documentation
 - [x] Add staging branch workflow (optional)
-- [ ] Test deployment and verify nudggg.com loads correctly
+- [x] Test deployment and verify nudggg.com loads correctly
+
+
+## Phase 16: Fix 403 Error - Deployment Path Issue
+- [x] Fix workflow to deploy dist/public CONTENTS (not folder) to /public_html root
+- [x] Add sanity check to verify index.html exists in build output
+- [x] Add pre-deployment directory listing
+- [x] Ensure trailing slash in local-dir for FTP-Deploy-Action
+- [x] Create Hostinger troubleshooting guide for permissions/ownership
