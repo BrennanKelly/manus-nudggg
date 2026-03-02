@@ -24,16 +24,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
+      - name: Build client
         run: pnpm build
 
       - name: Verify build output
         run: |
           if [ ! -f dist/public/index.html ]; then
-            echo "ERROR: dist/public/index.html not found. Build may have failed."
+            echo "ERROR: dist/public/index.html not found. Build failed."
             exit 1
           fi
-          echo "Build output verified:"
+          echo "Build output (dist/public/):"
           ls -lah dist/public/
 
       - name: Deploy to Hostinger via FTP
@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./dist/public/
-          server-dir: ${{ secrets.FTP_DIR }}/
+          server-dir: /public_html/
           dangerous-clean-slate: true
           exclude: |
             **/.git*
