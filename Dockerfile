@@ -8,6 +8,8 @@ WORKDIR /app
 
 # Install dependencies (leverage layer cache)
 COPY package.json pnpm-lock.yaml ./
+# patches/ is required by pnpm for patchedDependencies (e.g. wouter)
+COPY patches/ ./patches/
 RUN pnpm install --frozen-lockfile
 
 # Declare build-time args for VITE_ env vars (Vite bakes these into the bundle)
@@ -39,6 +41,8 @@ WORKDIR /app
 
 # Copy only what's needed to run
 COPY package.json pnpm-lock.yaml ./
+# patches/ is required by pnpm for patchedDependencies (e.g. wouter)
+COPY patches/ ./patches/
 RUN pnpm install --frozen-lockfile --prod
 
 # Copy compiled server + built frontend
