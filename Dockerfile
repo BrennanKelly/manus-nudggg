@@ -10,6 +10,22 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
+# Declare build-time args for VITE_ env vars (Vite bakes these into the bundle)
+ARG VITE_APP_ID
+ARG VITE_OAUTH_PORTAL_URL
+ARG VITE_FRONTEND_FORGE_API_URL
+ARG VITE_FRONTEND_FORGE_API_KEY
+ARG VITE_APP_TITLE
+ARG VITE_APP_LOGO
+
+# Expose them as env vars so Vite picks them up during build
+ENV VITE_APP_ID=$VITE_APP_ID
+ENV VITE_OAUTH_PORTAL_URL=$VITE_OAUTH_PORTAL_URL
+ENV VITE_FRONTEND_FORGE_API_URL=$VITE_FRONTEND_FORGE_API_URL
+ENV VITE_FRONTEND_FORGE_API_KEY=$VITE_FRONTEND_FORGE_API_KEY
+ENV VITE_APP_TITLE=$VITE_APP_TITLE
+ENV VITE_APP_LOGO=$VITE_APP_LOGO
+
 # Copy source and build
 COPY . .
 RUN pnpm build
