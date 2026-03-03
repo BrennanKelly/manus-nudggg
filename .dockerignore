@@ -10,4 +10,3 @@ dist
 .env.*
 client/node_modules
 drizzle/migrations
-patches
