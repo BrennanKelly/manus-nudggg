@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.gitignore
+.github
+.manus-logs
+*.log
+*.md
+.env
+.env.*
+client/node_modules
+drizzle/migrations
+patches
