@@ -9,31 +9,31 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:    #111827;
-      --mid:    #4b5563;
-      --soft:   #9ca3af;
-      --rule:   #e5e7eb;
-      --teal:   #0891b2;
-      --page-w: 780px;
+      --ink:   #111827;
+      --mid:   #4b5563;
+      --soft:  #9ca3af;
+      --rule:  #e5e7eb;
+      --teal:  #0891b2;
     }
 
+    /* Screen preview */
     html, body {
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--ink);
       background: #f3f4f6;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
 
-    /* ── PAGE ── */
+    /* ── PAGE SHELL ── */
     .page {
-      width: var(--page-w);
+      width: 816px;           /* 8.5in @ 96dpi */
+      min-height: 1056px;     /* 11in @ 96dpi  */
       margin: 32px auto;
       background: #fff;
-      padding: 44px 48px 40px;
+      padding: 48px 52px;
       box-shadow: 0 4px 32px rgba(0,0,0,.10);
+      display: flex;
+      flex-direction: column;
     }
 
     /* ── HEADER ── */
@@ -43,13 +43,14 @@
       align-items: flex-end;
       padding-bottom: 14px;
       border-bottom: 2px solid var(--ink);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .hd-left h1 {
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 700;
       letter-spacing: -0.5px;
       line-height: 1;
+      color: var(--ink);
     }
     .hd-left h1 span { color: var(--teal); }
     .hd-left p {
@@ -58,13 +59,13 @@
       letter-spacing: 2.5px;
       text-transform: uppercase;
       color: var(--mid);
-      margin-top: 5px;
+      margin-top: 6px;
     }
     .hd-right {
       text-align: right;
-      font-size: .75rem;
+      font-size: .82rem;
       color: var(--mid);
-      line-height: 1.8;
+      line-height: 1.9;
     }
     .hd-right a { color: var(--mid); text-decoration: none; }
     .hd-right a:hover { color: var(--teal); }
@@ -72,13 +73,12 @@
     /* ── STATS ROW ── */
     .stats {
       display: flex;
-      gap: 0;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .stat {
       flex: 1;
       text-align: center;
-      padding: 10px 0;
+      padding: 11px 0;
       border-top: 1px solid var(--rule);
       border-bottom: 1px solid var(--rule);
     }
@@ -95,33 +95,34 @@
       text-transform: uppercase;
       letter-spacing: 1.2px;
       color: var(--soft);
-      margin-top: 3px;
+      margin-top: 4px;
     }
 
     /* ── TWO-COL BODY ── */
     .body {
       display: grid;
-      grid-template-columns: 1fr 200px;
-      gap: 28px;
+      grid-template-columns: 1fr 210px;
+      gap: 32px;
+      flex: 1;
     }
 
     /* ── SECTION ── */
-    .sec { margin-bottom: 16px; }
+    .sec { margin-bottom: 18px; }
     .sec:last-child { margin-bottom: 0; }
 
     .sec-title {
-      font-size: .62rem;
+      font-size: .65rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--teal);
       border-bottom: 1px solid var(--rule);
-      padding-bottom: 4px;
-      margin-bottom: 10px;
+      padding-bottom: 5px;
+      margin-bottom: 12px;
     }
 
     /* ── JOB ── */
-    .job { margin-bottom: 10px; }
+    .job { margin-bottom: 13px; }
     .job:last-child { margin-bottom: 0; }
 
     .job-row {
@@ -131,34 +132,31 @@
       gap: 8px;
     }
     .job-title {
-      font-size: .82rem;
+      font-size: .88rem;
       font-weight: 700;
       color: var(--ink);
     }
     .job-date {
-      font-size: .68rem;
-      font-weight: 600;
+      font-size: .75rem;
+      font-weight: 500;
       color: var(--soft);
       white-space: nowrap;
       flex-shrink: 0;
     }
     .job-co {
-      font-size: .72rem;
+      font-size: .78rem;
       font-weight: 600;
       color: var(--teal);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
-    .job ul {
-      list-style: none;
-      padding: 0;
-    }
+    .job ul { list-style: none; padding: 0; }
     .job ul li {
-      font-size: .75rem;
+      font-size: .82rem;
       color: var(--mid);
-      padding-left: 10px;
+      padding-left: 12px;
       position: relative;
-      margin-bottom: 2px;
-      line-height: 1.45;
+      margin-bottom: 3px;
+      line-height: 1.5;
     }
     .job ul li::before {
       content: '–';
@@ -168,12 +166,29 @@
     }
 
     /* ── SIDEBAR ── */
-    .sidebar .sec-title { margin-top: 0; }
+    .edu-degree {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .edu-school {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--teal);
+      margin-top: 3px;
+    }
+    .edu-detail {
+      font-size: .78rem;
+      color: var(--mid);
+      margin-top: 4px;
+      line-height: 1.55;
+    }
 
-    /* ── SKILL GROUPS ── */
-    .skill-grp { margin-bottom: 10px; }
+    .skill-grp { margin-bottom: 12px; }
+    .skill-grp:last-child { margin-bottom: 0; }
     .skill-grp-name {
-      font-size: .62rem;
+      font-size: .65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -181,29 +196,9 @@
       margin-bottom: 4px;
     }
     .skill-grp p {
-      font-size: .72rem;
-      color: var(--mid);
-      line-height: 1.5;
-    }
-
-    /* ── EDUCATION ── */
-    .edu-degree {
       font-size: .78rem;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.3;
-    }
-    .edu-school {
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--teal);
-      margin-top: 2px;
-    }
-    .edu-detail {
-      font-size: .7rem;
       color: var(--mid);
-      margin-top: 3px;
-      line-height: 1.4;
+      line-height: 1.55;
     }
 
     /* ── PRINT ── */
@@ -212,8 +207,14 @@
       margin: 0;
     }
     @media print {
-      html, body { background: white; font-size: 12px; }
-      .page { margin: 0; box-shadow: none; padding: 28px 36px; width: 100%; }
+      html, body { background: white; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 100vh;
+        padding: 44px 48px;
+      }
     }
   </style>
 </head>
@@ -269,11 +270,11 @@
           </div>
           <div class="job-co">Edwards Garment</div>
           <ul>
-            <li>Primary owner of EdwardsGarment.com — content, product updates, ERP integrations, and customer-facing issue resolution.</li>
-            <li>Manage UniformAdvisors.com and EdwardsX.com for brand alignment, mobile responsiveness, and organic visibility.</li>
+            <li>Primary owner of EdwardsGarment.com — managing site content, product updates, ERP integrations, and customer-facing issue resolution.</li>
+            <li>Manage UniformAdvisors.com and EdwardsX.com for brand alignment, mobile responsiveness, and strong organic visibility.</li>
             <li>Eliminated agency spend ($50K saved), streamlined budget allocation (additional $50K saved), and nearly doubled lead volume.</li>
             <li>Grew digital leads 107% — from 366 in 2023 to 758 in 2025 — through full ownership of paid and organic campaigns.</li>
-            <li>Built HubSpot Marketing &amp; CRM workflows automating outreach, internal alerts, and follow-ups.</li>
+            <li>Built HubSpot Marketing &amp; CRM workflows automating outreach, internal alerts, and follow-ups, boosting team productivity.</li>
             <li>Represented Edwards at major national industry events, deepening distributor and client relationships.</li>
           </ul>
         </div>
@@ -285,8 +286,8 @@
           </div>
           <div class="job-co">Lake Michigan Marketing</div>
           <ul>
-            <li>Built affordable digital ecosystems for small businesses — connecting marketing, CRM, and automation to drive lead generation.</li>
-            <li>Leverage GoHighLevel to test and implement emerging integrations, staying ahead of evolving digital tools.</li>
+            <li>Built affordable digital ecosystems for small businesses — connecting marketing, CRM, and automation tools to drive lead generation and sales growth.</li>
+            <li>Leverage GoHighLevel to test and implement emerging integrations, staying ahead of evolving digital tools and AI-driven platforms.</li>
           </ul>
         </div>
 
@@ -297,8 +298,8 @@
           </div>
           <div class="job-co">Homer Stryker MD School of Medicine</div>
           <ul>
-            <li>Executed Mailchimp campaigns reaching 6,000+ potential donors; led events attended by 300+ community members.</li>
-            <li>Designed social media content and in-house digital displays to boost community engagement.</li>
+            <li>Executed targeted Mailchimp campaigns reaching 6,000+ potential donors; led events attended by 300+ community members.</li>
+            <li>Designed social media content and in-house digital displays to boost community engagement and visibility.</li>
           </ul>
         </div>
 
@@ -317,13 +318,17 @@
     </main>
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside>
 
       <div class="sec">
         <div class="sec-title">Education</div>
         <div class="edu-degree">BBA — Digital Marketing &amp; eCommerce</div>
         <div class="edu-school">Western Michigan University</div>
-        <div class="edu-detail">Minor: General Business<br>Graduated April 2023<br><strong>GPA 3.62 / 4.0</strong></div>
+        <div class="edu-detail">
+          Minor: General Business<br>
+          Graduated April 2023<br>
+          <strong>GPA 3.62 / 4.0</strong>
+        </div>
       </div>
 
       <div class="sec">
@@ -342,6 +347,11 @@
         <div class="skill-grp">
           <div class="skill-grp-name">Automation &amp; Ops</div>
           <p>Email/SMS Workflows · Pipeline Automation · CMS Management · ERP Integrations</p>
+        </div>
+
+        <div class="skill-grp">
+          <div class="skill-grp-name">AI &amp; Emerging Tools</div>
+          <p>Actively testing AI platforms and tools to improve efficiency, accelerate development, and stay ahead of the curve.</p>
         </div>
 
         <div class="skill-grp">
