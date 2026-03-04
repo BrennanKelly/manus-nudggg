@@ -4,507 +4,356 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brennan Kelly — Resume</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:   #0d1b2a;
-      --teal:   #0e9aa7;
-      --teal-lt:#e6f7f9;
-      --slate:  #3d5a80;
-      --mid:    #4a5568;
-      --light:  #f7f9fc;
-      --white:  #ffffff;
-      --accent: #f4a261;
-      --border: #dde4ed;
+      --ink:    #111827;
+      --mid:    #4b5563;
+      --soft:   #9ca3af;
+      --rule:   #e5e7eb;
+      --teal:   #0891b2;
+      --page-w: 780px;
     }
 
-    html { font-size: 15px; }
-
-    body {
+    html, body {
       font-family: 'Inter', sans-serif;
-      background: var(--light);
-      color: var(--navy);
-      line-height: 1.6;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink);
+      background: #f3f4f6;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
 
-    /* ── PAGE SHELL ── */
+    /* ── PAGE ── */
     .page {
-      max-width: 900px;
-      margin: 40px auto;
-      background: var(--white);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(13,27,42,.12);
+      width: var(--page-w);
+      margin: 32px auto;
+      background: #fff;
+      padding: 44px 48px 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,.10);
     }
 
     /* ── HEADER ── */
-    .header {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 100%);
-      padding: 52px 56px 44px;
-      position: relative;
-      overflow: hidden;
-    }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 260px; height: 260px;
-      border-radius: 50%;
-      background: rgba(14,154,167,.18);
-    }
-    .header::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; left: 30%;
-      width: 180px; height: 180px;
-      border-radius: 50%;
-      background: rgba(244,162,97,.10);
-    }
-
-    .header-inner { position: relative; z-index: 1; }
-
-    .name {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.2rem;
-      font-weight: 900;
-      color: var(--white);
-      letter-spacing: -0.5px;
-      line-height: 1.1;
-    }
-    .name span { color: var(--teal); }
-
-    .tagline {
-      margin-top: 8px;
-      font-size: 1rem;
-      font-weight: 500;
-      color: rgba(255,255,255,.65);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .contact-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 28px;
-    }
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,.85);
-      font-size: .85rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .contact-item:hover { color: var(--teal); }
-    .contact-item .icon {
-      width: 30px; height: 30px;
-      background: rgba(255,255,255,.12);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .9rem;
-    }
-
-    /* ── BODY LAYOUT ── */
-    .body {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 0;
-    }
-
-    /* ── MAIN COLUMN ── */
-    .main { padding: 44px 48px 44px 56px; }
-
-    /* ── SIDEBAR ── */
-    .sidebar {
-      background: var(--light);
-      border-left: 1px solid var(--border);
-      padding: 44px 32px;
-    }
-
-    /* ── SECTION TITLES ── */
-    .section { margin-bottom: 40px; }
-    .section:last-child { margin-bottom: 0; }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 22px;
-    }
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1.5px;
-      background: linear-gradient(to right, var(--teal), transparent);
-      border-radius: 2px;
-    }
-
-    /* ── JOB CARDS ── */
-    .job { margin-bottom: 30px; position: relative; padding-left: 20px; }
-    .job::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 6px;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--teal);
-      box-shadow: 0 0 0 3px rgba(14,154,167,.2);
-    }
-    .job::after {
-      content: '';
-      position: absolute;
-      left: 3.5px; top: 18px;
-      width: 1px;
-      bottom: -10px;
-      background: var(--border);
-    }
-    .job:last-child::after { display: none; }
-
-    .job-header {
+    .hd {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 4px;
+      align-items: flex-end;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 18px;
     }
-    .job-title {
-      font-size: 1rem;
+    .hd-left h1 {
+      font-size: 2rem;
       font-weight: 700;
-      color: var(--navy);
+      letter-spacing: -0.5px;
+      line-height: 1;
     }
-    .job-date {
-      font-size: .75rem;
+    .hd-left h1 span { color: var(--teal); }
+    .hd-left p {
+      font-size: .72rem;
       font-weight: 600;
-      color: var(--white);
-      background: var(--teal);
-      padding: 2px 10px;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
-    .job-company {
-      font-size: .85rem;
-      font-weight: 600;
-      color: var(--slate);
-      margin-bottom: 10px;
-    }
-
-    .job ul { list-style: none; padding: 0; }
-    .job ul li {
-      font-size: .85rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
       color: var(--mid);
-      padding: 4px 0 4px 16px;
-      position: relative;
-      line-height: 1.55;
+      margin-top: 5px;
     }
-    .job ul li::before {
-      content: '▸';
-      position: absolute;
-      left: 0;
-      color: var(--teal);
-      font-size: .7rem;
-      top: 5px;
+    .hd-right {
+      text-align: right;
+      font-size: .75rem;
+      color: var(--mid);
+      line-height: 1.8;
     }
+    .hd-right a { color: var(--mid); text-decoration: none; }
+    .hd-right a:hover { color: var(--teal); }
 
-    /* ── HIGHLIGHT STAT CARDS ── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 36px;
+    /* ── STATS ROW ── */
+    .stats {
+      display: flex;
+      gap: 0;
+      margin-bottom: 18px;
     }
-    .stat-card {
-      background: var(--teal-lt);
-      border: 1.5px solid rgba(14,154,167,.2);
-      border-radius: 12px;
-      padding: 14px 12px;
+    .stat {
+      flex: 1;
       text-align: center;
+      padding: 10px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
     }
-    .stat-number {
-      font-size: 1.5rem;
-      font-weight: 900;
+    .stat + .stat { border-left: 1px solid var(--rule); }
+    .stat-n {
+      font-size: 1.25rem;
+      font-weight: 700;
       color: var(--teal);
       line-height: 1;
     }
-    .stat-label {
-      font-size: .68rem;
+    .stat-l {
+      font-size: .62rem;
       font-weight: 600;
-      color: var(--slate);
-      margin-top: 4px;
       text-transform: uppercase;
-      letter-spacing: .8px;
+      letter-spacing: 1.2px;
+      color: var(--soft);
+      margin-top: 3px;
     }
 
-    /* ── SIDEBAR: SKILLS ── */
-    .skill-group { margin-bottom: 24px; }
-    .skill-group-title {
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
+    /* ── TWO-COL BODY ── */
+    .body {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 28px;
+    }
+
+    /* ── SECTION ── */
+    .sec { margin-bottom: 16px; }
+    .sec:last-child { margin-bottom: 0; }
+
+    .sec-title {
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--navy);
+      color: var(--teal);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 4px;
       margin-bottom: 10px;
     }
-    .skill-tags {
+
+    /* ── JOB ── */
+    .job { margin-bottom: 10px; }
+    .job:last-child { margin-bottom: 0; }
+
+    .job-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
     }
-    .tag {
+    .job-title {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .job-date {
+      font-size: .68rem;
+      font-weight: 600;
+      color: var(--soft);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .job-co {
       font-size: .72rem;
       font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      color: var(--mid);
-      transition: all .2s;
-    }
-    .tag:hover {
-      border-color: var(--teal);
       color: var(--teal);
+      margin-bottom: 4px;
     }
-    .tag.highlight {
-      background: var(--navy);
-      color: var(--white);
-      border-color: var(--navy);
+    .job ul {
+      list-style: none;
+      padding: 0;
+    }
+    .job ul li {
+      font-size: .75rem;
+      color: var(--mid);
+      padding-left: 10px;
+      position: relative;
+      margin-bottom: 2px;
+      line-height: 1.45;
+    }
+    .job ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--soft);
     }
 
-    /* ── EDUCATION (sidebar) ── */
-    .edu-block {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 12px;
-    }
-    .edu-degree {
-      font-size: .88rem;
+    /* ── SIDEBAR ── */
+    .sidebar .sec-title { margin-top: 0; }
+
+    /* ── SKILL GROUPS ── */
+    .skill-grp { margin-bottom: 10px; }
+    .skill-grp-name {
+      font-size: .62rem;
       font-weight: 700;
-      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .skill-grp p {
+      font-size: .72rem;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-degree {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--ink);
       line-height: 1.3;
     }
     .edu-school {
-      font-size: .78rem;
+      font-size: .72rem;
       font-weight: 600;
       color: var(--teal);
-      margin-top: 4px;
+      margin-top: 2px;
     }
     .edu-detail {
-      font-size: .75rem;
-      color: var(--mid);
-      margin-top: 6px;
-    }
-    .gpa-badge {
-      display: inline-block;
-      margin-top: 8px;
-      background: var(--accent);
-      color: var(--white);
       font-size: .7rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 20px;
-      letter-spacing: .5px;
+      color: var(--mid);
+      margin-top: 3px;
+      line-height: 1.4;
     }
 
     /* ── PRINT ── */
-    @media print {
-      body { background: white; }
-      .page { margin: 0; border-radius: 0; box-shadow: none; }
+    @page {
+      size: letter;
+      margin: 0;
     }
-
-    @media (max-width: 700px) {
-      .body { grid-template-columns: 1fr; }
-      .sidebar { border-left: none; border-top: 1px solid var(--border); }
-      .main { padding: 32px 24px; }
-      .header { padding: 36px 24px; }
-      .name { font-size: 2.2rem; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    @media print {
+      html, body { background: white; font-size: 12px; }
+      .page { margin: 0; box-shadow: none; padding: 28px 36px; width: 100%; }
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- ══ HEADER ══ -->
-  <header class="header">
-    <div class="header-inner">
-      <h1 class="name">Brennan <span>Kelly</span></h1>
-      <p class="tagline">Digital Marketing &amp; Growth Specialist</p>
-      <div class="contact-bar">
-        <a class="contact-item" href="tel:2693008958">
-          <span class="icon">📞</span> 269-300-8958
-        </a>
-        <a class="contact-item" href="mailto:bkelly@edwardsgarment.com">
-          <span class="icon">✉️</span> bkelly@edwardsgarment.com
-        </a>
-        <a class="contact-item" href="https://www.linkedin.com/in/brennankelly2023/" target="_blank">
-          <span class="icon">🔗</span> linkedin.com/in/brennankelly2023
-        </a>
-      </div>
+  <!-- HEADER -->
+  <header class="hd">
+    <div class="hd-left">
+      <h1>Brennan <span>Kelly</span></h1>
+      <p>Digital Marketing &amp; Growth Specialist</p>
+    </div>
+    <div class="hd-right">
+      <a href="tel:2693008958">269-300-8958</a><br>
+      <a href="mailto:bkelly@edwardsgarment.com">bkelly@edwardsgarment.com</a><br>
+      <a href="https://www.linkedin.com/in/brennankelly2023/" target="_blank">linkedin.com/in/brennankelly2023</a>
     </div>
   </header>
 
-  <!-- ══ BODY ══ -->
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-n">107%</div>
+      <div class="stat-l">Lead Growth</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">$100K+</div>
+      <div class="stat-l">Budget Saved</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">366 → 758</div>
+      <div class="stat-l">Leads Generated</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">3 Sites</div>
+      <div class="stat-l">Owned &amp; Managed</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
   <div class="body">
 
-    <!-- ── MAIN ── -->
-    <main class="main">
+    <!-- MAIN -->
+    <main>
 
-      <!-- Impact Numbers -->
-      <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-number">107%</div>
-          <div class="stat-label">Lead Growth</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">$100K+</div>
-          <div class="stat-label">Budget Saved</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">758</div>
-          <div class="stat-label">Leads in 2025</div>
-        </div>
-      </div>
-
-      <!-- Experience -->
-      <section class="section">
-        <h2 class="section-title">Experience</h2>
+      <div class="sec">
+        <div class="sec-title">Experience</div>
 
         <div class="job">
-          <div class="job-header">
+          <div class="job-row">
             <span class="job-title">Marketing Specialist</span>
             <span class="job-date">Jun 2023 – Present</span>
           </div>
-          <div class="job-company">Edwards Garment</div>
+          <div class="job-co">Edwards Garment</div>
           <ul>
-            <li>Primary owner of EdwardsGarment.com — managing site content, product updates, and ERP data integrations while serving as the main point of contact for customer issues and provider communication.</li>
-            <li>Manage UniformAdvisors.com and EdwardsX.com, ensuring brand alignment, mobile responsiveness, and strong organic visibility.</li>
-            <li>Drove the decision to eliminate agency costs, saving <strong>$50K</strong>, streamlined budget allocation to cut an additional <strong>$50K</strong>, and nearly doubled lead volume.</li>
-            <li>Delivered a <strong>107% increase</strong> in digital lead generation — from 366 leads in 2023 to 758 in 2025 — through full ownership of paid and organic campaigns.</li>
-            <li>Implemented HubSpot Marketing and CRM workflows to automate outreach, internal alerts, and follow-ups, boosting team productivity.</li>
-            <li>Represented Edwards at major industry events nationwide, building distributor and client relationships firsthand.</li>
+            <li>Primary owner of EdwardsGarment.com — content, product updates, ERP integrations, and customer-facing issue resolution.</li>
+            <li>Manage UniformAdvisors.com and EdwardsX.com for brand alignment, mobile responsiveness, and organic visibility.</li>
+            <li>Eliminated agency spend ($50K saved), streamlined budget allocation (additional $50K saved), and nearly doubled lead volume.</li>
+            <li>Grew digital leads 107% — from 366 in 2023 to 758 in 2025 — through full ownership of paid and organic campaigns.</li>
+            <li>Built HubSpot Marketing &amp; CRM workflows automating outreach, internal alerts, and follow-ups.</li>
+            <li>Represented Edwards at major national industry events, deepening distributor and client relationships.</li>
           </ul>
         </div>
 
         <div class="job">
-          <div class="job-header">
+          <div class="job-row">
             <span class="job-title">Founder</span>
             <span class="job-date">Mar 2025 – Present</span>
           </div>
-          <div class="job-company">Lake Michigan Marketing</div>
+          <div class="job-co">Lake Michigan Marketing</div>
           <ul>
-            <li>Founded to help small businesses build affordable digital ecosystems connecting marketing, CRM, and automation tools to drive sales growth and lead generation.</li>
-            <li>Leverage the GoHighLevel platform to test and implement emerging technologies and integrations, staying ahead of evolving digital tools.</li>
-            <li>Focused on automation and integrations that streamline outreach, nurture leads, and convert prospects efficiently.</li>
+            <li>Built affordable digital ecosystems for small businesses — connecting marketing, CRM, and automation to drive lead generation.</li>
+            <li>Leverage GoHighLevel to test and implement emerging integrations, staying ahead of evolving digital tools.</li>
           </ul>
         </div>
 
         <div class="job">
-          <div class="job-header">
+          <div class="job-row">
             <span class="job-title">Marketing Intern</span>
             <span class="job-date">Oct 2022 – Apr 2023</span>
           </div>
-          <div class="job-company">Homer Stryker MD School of Medicine</div>
+          <div class="job-co">Homer Stryker MD School of Medicine</div>
           <ul>
-            <li>Designed social media content and in-house digital displays to boost community engagement and visibility.</li>
-            <li>Developed and executed targeted Mailchimp campaigns reaching over <strong>6,000 potential donors</strong>.</li>
-            <li>Led planning and organization of locally recognized events attended by more than <strong>300 community members</strong>.</li>
+            <li>Executed Mailchimp campaigns reaching 6,000+ potential donors; led events attended by 300+ community members.</li>
+            <li>Designed social media content and in-house digital displays to boost community engagement.</li>
           </ul>
         </div>
 
         <div class="job">
-          <div class="job-header">
-            <span class="job-title">Digital Marketing Strategic Consultant</span>
-            <span class="job-date">Jan 2023 – Mar 2023</span>
+          <div class="job-row">
+            <span class="job-title">Digital Marketing Consultant</span>
+            <span class="job-date">Jan – Mar 2023</span>
           </div>
-          <div class="job-company">Radio Flyer (Academic Consulting Project)</div>
+          <div class="job-co">Radio Flyer — Academic Consulting Project</div>
           <ul>
-            <li>Used primary and secondary research to develop strategic marketing campaigns driving awareness, consideration, and conversion.</li>
-            <li>Three-person team ranked <strong>12th out of 242 participants</strong> nationally.</li>
+            <li>Developed a full campaign strategy driving awareness, consideration, and conversion — ranked <strong>12th of 242 teams</strong> nationally.</li>
           </ul>
         </div>
 
-      </section>
+      </div>
     </main>
 
-    <!-- ── SIDEBAR ── -->
+    <!-- SIDEBAR -->
     <aside class="sidebar">
 
-      <!-- Education -->
-      <section class="section">
-        <h2 class="section-title">Education</h2>
-        <div class="edu-block">
-          <div class="edu-degree">BBA — Digital Marketing &amp; eCommerce</div>
-          <div class="edu-school">Western Michigan University</div>
-          <div class="edu-detail">Minor: General Business &nbsp;·&nbsp; Graduated April 2023</div>
-          <span class="gpa-badge">GPA 3.62 / 4.0</span>
-        </div>
-      </section>
+      <div class="sec">
+        <div class="sec-title">Education</div>
+        <div class="edu-degree">BBA — Digital Marketing &amp; eCommerce</div>
+        <div class="edu-school">Western Michigan University</div>
+        <div class="edu-detail">Minor: General Business<br>Graduated April 2023<br><strong>GPA 3.62 / 4.0</strong></div>
+      </div>
 
-      <!-- Skills -->
-      <section class="section">
-        <h2 class="section-title">Skills</h2>
+      <div class="sec">
+        <div class="sec-title">Skills</div>
 
-        <div class="skill-group">
-          <div class="skill-group-title">Platforms &amp; CRM</div>
-          <div class="skill-tags">
-            <span class="tag highlight">HubSpot</span>
-            <span class="tag highlight">GoHighLevel</span>
-            <span class="tag">Zoho</span>
-            <span class="tag">Microsoft D365</span>
-            <span class="tag">Mailchimp</span>
-          </div>
+        <div class="skill-grp">
+          <div class="skill-grp-name">Platforms &amp; CRM</div>
+          <p>HubSpot · GoHighLevel · Zoho · Microsoft D365 · Mailchimp</p>
         </div>
 
-        <div class="skill-group">
-          <div class="skill-group-title">Paid &amp; Organic</div>
-          <div class="skill-tags">
-            <span class="tag highlight">Google Ads</span>
-            <span class="tag highlight">LinkedIn Ads</span>
-            <span class="tag">SEO</span>
-            <span class="tag">A/B Testing</span>
-            <span class="tag">CRO</span>
-            <span class="tag">Keyword Research</span>
-          </div>
+        <div class="skill-grp">
+          <div class="skill-grp-name">Paid &amp; Organic</div>
+          <p>Google Ads · LinkedIn Ads · SEO · A/B Testing · CRO · Keyword Research</p>
         </div>
 
-        <div class="skill-group">
-          <div class="skill-group-title">Automation &amp; Ops</div>
-          <div class="skill-tags">
-            <span class="tag">Email/SMS Workflows</span>
-            <span class="tag">Pipeline Automation</span>
-            <span class="tag">CMS Management</span>
-            <span class="tag">ERP Integrations</span>
-          </div>
+        <div class="skill-grp">
+          <div class="skill-grp-name">Automation &amp; Ops</div>
+          <p>Email/SMS Workflows · Pipeline Automation · CMS Management · ERP Integrations</p>
         </div>
 
-        <div class="skill-group">
-          <div class="skill-group-title">Creative &amp; Strategy</div>
-          <div class="skill-tags">
-            <span class="tag">Canva</span>
-            <span class="tag">Adobe Suite</span>
-            <span class="tag">Landing Pages</span>
-            <span class="tag">Budget Allocation</span>
-            <span class="tag">Campaign Strategy</span>
-          </div>
+        <div class="skill-grp">
+          <div class="skill-grp-name">Creative &amp; Strategy</div>
+          <p>Canva · Adobe Suite · Landing Pages · Budget Allocation · Campaign Strategy</p>
         </div>
-      </section>
+
+      </div>
 
     </aside>
   </div><!-- /body -->
+
 </div><!-- /page -->
 </body>
 </html>
