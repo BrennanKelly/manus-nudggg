@@ -16,7 +16,6 @@
       --teal:  #0891b2;
     }
 
-    /* Screen preview */
     html, body {
       font-family: 'Inter', sans-serif;
       background: #f3f4f6;
@@ -26,8 +25,8 @@
 
     /* ── PAGE SHELL ── */
     .page {
-      width: 816px;           /* 8.5in @ 96dpi */
-      min-height: 1056px;     /* 11in @ 96dpi  */
+      width: 816px;
+      min-height: 1056px;
       margin: 32px auto;
       background: #fff;
       padding: 48px 52px;
@@ -43,7 +42,7 @@
       align-items: flex-end;
       padding-bottom: 14px;
       border-bottom: 2px solid var(--ink);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .hd-left h1 {
       font-size: 2.1rem;
@@ -70,34 +69,6 @@
     .hd-right a { color: var(--mid); text-decoration: none; }
     .hd-right a:hover { color: var(--teal); }
 
-    /* ── STATS ROW ── */
-    .stats {
-      display: flex;
-      margin-bottom: 16px;
-    }
-    .stat {
-      flex: 1;
-      text-align: center;
-      padding: 11px 0;
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-    .stat + .stat { border-left: 1px solid var(--rule); }
-    .stat-n {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--teal);
-      line-height: 1;
-    }
-    .stat-l {
-      font-size: .62rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--soft);
-      margin-top: 4px;
-    }
-
     /* ── TWO-COL BODY ── */
     .body {
       display: grid;
@@ -107,7 +78,7 @@
     }
 
     /* ── SECTION ── */
-    .sec { margin-bottom: 18px; }
+    .sec { margin-bottom: 20px; }
     .sec:last-child { margin-bottom: 0; }
 
     .sec-title {
@@ -118,11 +89,11 @@
       color: var(--teal);
       border-bottom: 1px solid var(--rule);
       padding-bottom: 5px;
-      margin-bottom: 12px;
+      margin-bottom: 13px;
     }
 
     /* ── JOB ── */
-    .job { margin-bottom: 13px; }
+    .job { margin-bottom: 14px; }
     .job:last-child { margin-bottom: 0; }
 
     .job-row {
@@ -159,10 +130,11 @@
       line-height: 1.5;
     }
     .job ul li::before {
-      content: '–';
+      content: '·';
       position: absolute;
-      left: 0;
-      color: var(--soft);
+      left: 1px;
+      color: var(--teal);
+      font-weight: 700;
     }
 
     /* ── SIDEBAR ── */
@@ -229,30 +201,10 @@
     </div>
     <div class="hd-right">
       <a href="tel:2693008958">269-300-8958</a><br>
-      <a href="mailto:bkelly@edwardsgarment.com">bkelly@edwardsgarment.com</a><br>
+      <a href="mailto:brennan13kelly@gmail.com">brennan13kelly@gmail.com</a><br>
       <a href="https://www.linkedin.com/in/brennankelly2023/" target="_blank">linkedin.com/in/brennankelly2023</a>
     </div>
   </header>
-
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-n">107%</div>
-      <div class="stat-l">Lead Growth</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n">$100K+</div>
-      <div class="stat-l">Budget Saved</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n">366 → 758</div>
-      <div class="stat-l">Leads Generated</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n">3 Sites</div>
-      <div class="stat-l">Owned &amp; Managed</div>
-    </div>
-  </div>
 
   <!-- BODY -->
   <div class="body">
@@ -270,12 +222,12 @@
           </div>
           <div class="job-co">Edwards Garment</div>
           <ul>
-            <li>Primary owner of EdwardsGarment.com — managing site content, product updates, ERP integrations, and customer-facing issue resolution.</li>
-            <li>Manage UniformAdvisors.com and EdwardsX.com for brand alignment, mobile responsiveness, and strong organic visibility.</li>
-            <li>Eliminated agency spend ($50K saved), streamlined budget allocation (additional $50K saved), and nearly doubled lead volume.</li>
-            <li>Grew digital leads 107% — from 366 in 2023 to 758 in 2025 — through full ownership of paid and organic campaigns.</li>
-            <li>Built HubSpot Marketing &amp; CRM workflows automating outreach, internal alerts, and follow-ups, boosting team productivity.</li>
-            <li>Represented Edwards at major national industry events, deepening distributor and client relationships.</li>
+            <li>Serve as the primary owner of EdwardsGarment.com, managing site content, product updates, ERP integrations, and customer-facing issue resolution.</li>
+            <li>Manage UniformAdvisors.com and EdwardsX.com for brand alignment, mobile responsiveness, and strong organic and paid visibility.</li>
+            <li>Grow digital leads 107% — from 366 in 2023 to 758 in 2025 — through full ownership of paid and organic campaigns.</li>
+            <li>Eliminate agency spend ($50K saved), streamline budget allocation (additional $50K saved), and nearly double lead volume.</li>
+            <li>Build advanced HubSpot CRM and marketing workflows, customizing the platform to fit the specific needs of both the sales and marketing teams — including automated outreach sequences, internal alerts, lead scoring, and pipeline management.</li>
+            <li>Represent Edwards at major national industry events, deepening distributor and client relationships.</li>
           </ul>
         </div>
 
@@ -286,8 +238,9 @@
           </div>
           <div class="job-co">Lake Michigan Marketing</div>
           <ul>
-            <li>Built affordable digital ecosystems for small businesses — connecting marketing, CRM, and automation tools to drive lead generation and sales growth.</li>
-            <li>Leverage GoHighLevel to test and implement emerging integrations, staying ahead of evolving digital tools and AI-driven platforms.</li>
+            <li>Building affordable digital ecosystems for small businesses, connecting marketing, CRM, and automation tools to drive lead generation and sales growth.</li>
+            <li>Deepening expertise in GoHighLevel CRM, exploring its full capabilities to build and optimize client systems at scale.</li>
+            <li>Using AI tools to develop a web platform — working with GitHub for version control, connecting domains, managing DNS and deployment basics, and building foundational development knowledge to bring ideas to life independently.</li>
           </ul>
         </div>
 
@@ -351,7 +304,12 @@
 
         <div class="skill-grp">
           <div class="skill-grp-name">AI &amp; Emerging Tools</div>
-          <p>Actively testing AI platforms and tools to improve efficiency, accelerate development, and stay ahead of the curve.</p>
+          <p>Actively testing AI platforms to improve efficiency and accelerate development across marketing and web projects.</p>
+        </div>
+
+        <div class="skill-grp">
+          <div class="skill-grp-name">Web &amp; Development</div>
+          <p>GitHub · AI-Assisted Web Development · Domain &amp; DNS Management · Project Hosting · Deployment Basics</p>
         </div>
 
         <div class="skill-grp">
