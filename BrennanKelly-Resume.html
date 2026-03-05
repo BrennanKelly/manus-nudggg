@@ -23,16 +23,12 @@
       print-color-adjust: exact;
     }
 
-    /* ── PAGE SHELL ── */
     .page {
       width: 816px;
-      min-height: 1056px;
-      margin: 32px auto;
+      margin: 24px auto;
       background: #fff;
-      padding: 48px 52px;
+      padding: 40px 50px 36px;
       box-shadow: 0 4px 32px rgba(0,0,0,.10);
-      display: flex;
-      flex-direction: column;
     }
 
     /* ── HEADER ── */
@@ -40,12 +36,12 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      padding-bottom: 14px;
+      padding-bottom: 12px;
       border-bottom: 2px solid var(--ink);
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
     .hd-left h1 {
-      font-size: 2.1rem;
+      font-size: 2rem;
       font-weight: 700;
       letter-spacing: -0.5px;
       line-height: 1;
@@ -53,47 +49,65 @@
     }
     .hd-left h1 span { color: var(--teal); }
     .hd-left p {
-      font-size: .72rem;
+      font-size: .68rem;
       font-weight: 600;
       letter-spacing: 2.5px;
       text-transform: uppercase;
       color: var(--mid);
-      margin-top: 6px;
+      margin-top: 5px;
     }
     .hd-right {
       text-align: right;
-      font-size: .82rem;
+      font-size: .8rem;
       color: var(--mid);
-      line-height: 1.9;
+      line-height: 1.85;
     }
     .hd-right a { color: var(--mid); text-decoration: none; }
-    .hd-right a:hover { color: var(--teal); }
 
-    /* ── TWO-COL BODY ── */
-    .body {
-      display: grid;
-      grid-template-columns: 1fr 210px;
-      gap: 32px;
-      flex: 1;
+    /* ── SUMMARY ── */
+    .summary {
+      font-size: .8rem;
+      color: var(--mid);
+      line-height: 1.55;
+      border-left: 3px solid var(--teal);
+      padding-left: 13px;
+      margin-bottom: 14px;
+    }
+
+    /* ── TWO-COL via table ── */
+    .cols {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .col-main {
+      width: 540px;
+      vertical-align: top;
+      padding-right: 28px;
+    }
+    .col-side {
+      width: 188px;
+      vertical-align: top;
+      border-left: 1px solid var(--rule);
+      padding-left: 22px;
     }
 
     /* ── SECTION ── */
-    .sec { margin-bottom: 20px; }
+    .sec { margin-bottom: 14px; }
     .sec:last-child { margin-bottom: 0; }
 
     .sec-title {
-      font-size: .65rem;
+      font-size: .62rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--teal);
       border-bottom: 1px solid var(--rule);
-      padding-bottom: 5px;
-      margin-bottom: 13px;
+      padding-bottom: 4px;
+      margin-bottom: 9px;
     }
 
     /* ── JOB ── */
-    .job { margin-bottom: 14px; }
+    .job { margin-bottom: 11px; }
     .job:last-child { margin-bottom: 0; }
 
     .job-row {
@@ -103,31 +117,31 @@
       gap: 8px;
     }
     .job-title {
-      font-size: .88rem;
+      font-size: .85rem;
       font-weight: 700;
       color: var(--ink);
     }
     .job-date {
-      font-size: .75rem;
+      font-size: .72rem;
       font-weight: 500;
       color: var(--soft);
       white-space: nowrap;
       flex-shrink: 0;
     }
     .job-co {
-      font-size: .78rem;
+      font-size: .75rem;
       font-weight: 600;
       color: var(--teal);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
     .job ul { list-style: none; padding: 0; }
     .job ul li {
-      font-size: .82rem;
+      font-size: .79rem;
       color: var(--mid);
-      padding-left: 12px;
+      padding-left: 11px;
       position: relative;
-      margin-bottom: 3px;
-      line-height: 1.5;
+      margin-bottom: 2px;
+      line-height: 1.45;
     }
     .job ul li::before {
       content: '·';
@@ -139,54 +153,44 @@
 
     /* ── SIDEBAR ── */
     .edu-degree {
-      font-size: .85rem;
+      font-size: .82rem;
       font-weight: 700;
       color: var(--ink);
       line-height: 1.3;
     }
     .edu-school {
-      font-size: .78rem;
+      font-size: .75rem;
       font-weight: 600;
       color: var(--teal);
-      margin-top: 3px;
+      margin-top: 2px;
     }
     .edu-detail {
-      font-size: .78rem;
+      font-size: .75rem;
       color: var(--mid);
-      margin-top: 4px;
-      line-height: 1.55;
+      margin-top: 3px;
+      line-height: 1.5;
     }
 
-    .skill-grp { margin-bottom: 12px; }
+    .skill-grp { margin-bottom: 9px; }
     .skill-grp:last-child { margin-bottom: 0; }
     .skill-grp-name {
-      font-size: .65rem;
+      font-size: .62rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--ink);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .skill-grp p {
-      font-size: .78rem;
+      font-size: .75rem;
       color: var(--mid);
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
-    /* ── PRINT ── */
-    @page {
-      size: letter;
-      margin: 0;
-    }
+    @page { size: letter; margin: 0; }
     @media print {
       html, body { background: white; }
-      .page {
-        margin: 0;
-        box-shadow: none;
-        width: 100%;
-        min-height: 100vh;
-        padding: 44px 48px;
-      }
+      .page { margin: 0; box-shadow: none; width: 100%; padding: 36px 46px 32px; }
     }
   </style>
 </head>
@@ -194,40 +198,43 @@
 <div class="page">
 
   <!-- HEADER -->
-  <header class="hd">
+  <div class="hd">
     <div class="hd-left">
       <h1>Brennan <span>Kelly</span></h1>
-      <p>Digital Marketing &amp; Growth Specialist</p>
+      <p>Digital Marketing Strategist &amp; Marketing Operations</p>
     </div>
     <div class="hd-right">
       <a href="tel:2693008958">269-300-8958</a><br>
       <a href="mailto:brennan13kelly@gmail.com">brennan13kelly@gmail.com</a><br>
       <a href="https://www.linkedin.com/in/brennankelly2023/" target="_blank">linkedin.com/in/brennankelly2023</a>
     </div>
-  </header>
+  </div>
 
-  <!-- BODY -->
-  <div class="body">
+  <!-- SUMMARY -->
+  <p class="summary">Digital marketing professional specializing in marketing operations, ecommerce systems, and revenue-driving digital infrastructure. Builds and optimizes CRM workflows, manages multi-site ecommerce environments, and owns full-funnel lead generation systems — bridging marketing strategy and technical execution to drive pipeline performance and sales growth.</p>
+
+  <!-- TWO-COL BODY -->
+  <table class="cols"><tr>
 
     <!-- MAIN -->
-    <main>
+    <td class="col-main">
 
       <div class="sec">
         <div class="sec-title">Experience</div>
 
         <div class="job">
           <div class="job-row">
-            <span class="job-title">Marketing Specialist</span>
+            <span class="job-title">Digital Marketing &amp; Ecommerce Specialist</span>
             <span class="job-date">Jun 2023 – Present</span>
           </div>
           <div class="job-co">Edwards Garment</div>
           <ul>
-            <li>Serve as the primary owner of EdwardsGarment.com, managing site content, product updates, ERP integrations, and customer-facing issue resolution.</li>
-            <li>Manage UniformAdvisors.com and EdwardsX.com for brand alignment, mobile responsiveness, and strong organic and paid visibility.</li>
-            <li>Grow digital leads 107% — from 366 in 2023 to 758 in 2025 — through full ownership of paid and organic campaigns.</li>
-            <li>Eliminate agency spend ($50K saved), streamline budget allocation (additional $50K saved), and nearly double lead volume.</li>
-            <li>Build advanced HubSpot CRM and marketing workflows, customizing the platform to fit the specific needs of both the sales and marketing teams — including automated outreach sequences, internal alerts, lead scoring, and pipeline management.</li>
-            <li>Represent Edwards at major national industry events, deepening distributor and client relationships.</li>
+            <li>Own and operate EdwardsGarment.com, UniformAdvisors.com, and EdwardsX.com — overseeing content strategy, product data, ERP integrations, and site performance across all three properties.</li>
+            <li>Architect and manage the full digital lead generation system, growing qualified leads 107% (366 in 2023 to 758 in 2025) through strategic ownership of paid search, SEO, and conversion optimization.</li>
+            <li>Restructure digital ad spend strategy, eliminating $50K in agency fees and reallocating an additional $50K in budget — nearly doubling lead output while reducing cost per acquisition.</li>
+            <li>Build and maintain advanced HubSpot CRM and marketing automation workflows, customizing the platform to align with sales pipeline stages, automate lead routing, trigger internal alerts, and support distributor and rep follow-up sequences.</li>
+            <li>Manage ecommerce product data, backend integrations, and ERP data syncs to maintain accurate inventory, pricing, and content across all digital channels.</li>
+            <li>Represent the brand at national industry events, building distributor relationships and gathering intelligence to inform digital strategy.</li>
           </ul>
         </div>
 
@@ -238,9 +245,9 @@
           </div>
           <div class="job-co">Lake Michigan Marketing</div>
           <ul>
-            <li>Building affordable digital ecosystems for small businesses, connecting marketing, CRM, and automation tools to drive lead generation and sales growth.</li>
-            <li>Deepening expertise in GoHighLevel CRM, exploring its full capabilities to build and optimize client systems at scale.</li>
-            <li>Using AI tools to develop a web platform — working with GitHub for version control, connecting domains, managing DNS and deployment basics, and building foundational development knowledge to bring ideas to life independently.</li>
+            <li>Building end-to-end digital systems for small businesses — connecting CRM, marketing automation, and lead generation infrastructure using GoHighLevel to drive measurable sales outcomes.</li>
+            <li>Developing a web platform independently using AI-assisted development tools and GitHub, with hands-on experience in project hosting, domain management, DNS configuration, and deployment workflows.</li>
+            <li>Actively testing and integrating AI tools across marketing and development workflows to improve efficiency, accelerate output, and stay ahead of emerging technology trends.</li>
           </ul>
         </div>
 
@@ -251,8 +258,7 @@
           </div>
           <div class="job-co">Homer Stryker MD School of Medicine</div>
           <ul>
-            <li>Executed targeted Mailchimp campaigns reaching 6,000+ potential donors; led events attended by 300+ community members.</li>
-            <li>Designed social media content and in-house digital displays to boost community engagement and visibility.</li>
+            <li>Executed Mailchimp campaigns reaching 6,000+ potential donors; led events for 300+ attendees; produced social and digital display content.</li>
           </ul>
         </div>
 
@@ -263,15 +269,15 @@
           </div>
           <div class="job-co">Radio Flyer — Academic Consulting Project</div>
           <ul>
-            <li>Developed a full campaign strategy driving awareness, consideration, and conversion — ranked <strong>12th of 242 teams</strong> nationally.</li>
+            <li>Developed a full-funnel campaign strategy covering awareness, consideration, and conversion — ranked <strong>12th of 242 teams</strong> nationally.</li>
           </ul>
         </div>
 
       </div>
-    </main>
+    </td>
 
     <!-- SIDEBAR -->
-    <aside>
+    <td class="col-side">
 
       <div class="sec">
         <div class="sec-title">Education</div>
@@ -285,43 +291,43 @@
       </div>
 
       <div class="sec">
-        <div class="sec-title">Skills</div>
+        <div class="sec-title">Core Skills</div>
 
         <div class="skill-grp">
-          <div class="skill-grp-name">Platforms &amp; CRM</div>
-          <p>HubSpot · GoHighLevel · Zoho · Microsoft D365 · Mailchimp</p>
+          <div class="skill-grp-name">Marketing Operations</div>
+          <p>CRM Strategy · Lead Routing · Pipeline Automation · Marketing Workflows · HubSpot · GoHighLevel · Zoho</p>
         </div>
 
         <div class="skill-grp">
-          <div class="skill-grp-name">Paid &amp; Organic</div>
-          <p>Google Ads · LinkedIn Ads · SEO · A/B Testing · CRO · Keyword Research</p>
+          <div class="skill-grp-name">Ecommerce &amp; Systems</div>
+          <p>Multi-Site Management · ERP Integrations · Product Data · CMS · Microsoft D365</p>
         </div>
 
         <div class="skill-grp">
-          <div class="skill-grp-name">Automation &amp; Ops</div>
-          <p>Email/SMS Workflows · Pipeline Automation · CMS Management · ERP Integrations</p>
+          <div class="skill-grp-name">Paid &amp; Organic Growth</div>
+          <p>Google Ads · LinkedIn Ads · SEO · CRO · A/B Testing · Keyword Research · Landing Pages</p>
         </div>
 
         <div class="skill-grp">
-          <div class="skill-grp-name">AI &amp; Emerging Tools</div>
-          <p>Actively testing AI platforms to improve efficiency and accelerate development across marketing and web projects.</p>
+          <div class="skill-grp-name">Analytics &amp; Strategy</div>
+          <p>Campaign Analytics · Budget Allocation · Lead Generation Strategy · Performance Reporting</p>
         </div>
 
         <div class="skill-grp">
           <div class="skill-grp-name">Web &amp; Development</div>
-          <p>GitHub · AI-Assisted Web Development · Domain &amp; DNS Management · Project Hosting · Deployment Basics</p>
+          <p>GitHub · AI-Assisted Development · Domain &amp; DNS Management · Project Hosting · Deployment Basics</p>
         </div>
 
         <div class="skill-grp">
-          <div class="skill-grp-name">Creative &amp; Strategy</div>
-          <p>Canva · Adobe Suite · Landing Pages · Budget Allocation · Campaign Strategy</p>
+          <div class="skill-grp-name">AI &amp; Emerging Tools</div>
+          <p>Actively testing AI platforms to accelerate marketing, development, and operational workflows.</p>
         </div>
 
       </div>
 
-    </aside>
-  </div><!-- /body -->
+    </td>
+  </tr></table>
 
-</div><!-- /page -->
+</div>
 </body>
 </html>
