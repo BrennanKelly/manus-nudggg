@@ -86,13 +86,17 @@ declare global {
   }
 }
 
-const API_KEY = import.meta.env.VITE_FRONTEND_FORGE_API_KEY;
+const API_KEY = import.meta.env.VITE_FRONTEND_FORGE_API_KEY || "";
 const FORGE_BASE_URL =
   import.meta.env.VITE_FRONTEND_FORGE_API_URL ||
   "https://forge.butterfly-effect.dev";
 const MAPS_PROXY_URL = `${FORGE_BASE_URL}/v1/maps/proxy`;
 
 function loadMapScript() {
+  if (!API_KEY) {
+    console.warn("[Map] Google Maps not configured: VITE_FRONTEND_FORGE_API_KEY is missing");
+    return Promise.resolve(null);
+  }
   return new Promise(resolve => {
     const script = document.createElement("script");
     script.src = `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geocoding,geometry`;
@@ -104,6 +108,7 @@ function loadMapScript() {
     };
     script.onerror = () => {
       console.error("Failed to load Google Maps script");
+      resolve(null);
     };
     document.head.appendChild(script);
   });
@@ -129,6 +134,10 @@ export function MapView({
     await loadMapScript();
     if (!mapContainer.current) {
       console.error("Map container not found");
+      return;
+    }
+    if (!window.google?.maps) {
+      console.warn("[Map] Google Maps SDK not available");
       return;
     }
     map.current = new window.google.maps.Map(mapContainer.current, {
