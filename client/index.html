@@ -1,46 +1,57 @@
 <!doctype html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Nudggg</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    
-    <!-- Google Fonts - Friendly, readable typography -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Lake Michigan Marketing — Digital Marketing Agency Southwest Michigan</title>
+    <meta name="description" content="Lake Michigan Marketing is Southwest Michigan's premier digital marketing agency. We build revenue-generating systems — websites, CRM automation, SEO, and paid ads — for high-margin businesses in Kalamazoo, Grand Rapids, and beyond." />
+    <meta name="keywords" content="marketing agency Kalamazoo, digital marketing Southwest Michigan, website design Kalamazoo, SEO Kalamazoo, Google Ads Michigan, CRM automation Michigan, marketing agency Grand Rapids" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://lakemichiganmarketing.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lakemichiganmarketing.com/" />
+    <meta property="og:title" content="Lake Michigan Marketing — Digital Marketing Agency Southwest Michigan" />
+    <meta property="og:description" content="We don't just build websites. We build systems that generate revenue. Serving Kalamazoo, Grand Rapids, and Southwest Michigan." />
+    <meta property="og:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663365056642/fQKrt4t3F2Ag4VrJFMx6DM/hero-bg-igpCzY48yDZNKGuu2p7pnr.webp" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lake Michigan Marketing — Digital Marketing Agency Southwest Michigan" />
+    <meta name="twitter:description" content="Revenue-generating marketing systems for Southwest Michigan businesses." />
+
+    <!-- Fonts: Playfair Display + DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet" />
-    
-    <style>
-      body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Crimson Pro', Georgia, serif;
-      }
-    </style>
-  </head>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
 
+    <!-- Schema.org LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Lake Michigan Marketing",
+      "description": "Digital marketing agency serving Southwest Michigan — website design, SEO, CRM automation, and lead generation.",
+      "url": "https://lakemichiganmarketing.com",
+      "telephone": "",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "MI",
+        "addressCountry": "US",
+        "addressLocality": "Southwest Michigan"
+      },
+      "areaServed": ["Kalamazoo, MI", "Grand Rapids, MI", "Southwest Michigan"],
+      "serviceType": ["Website Design", "SEO Services", "CRM Automation", "Lead Generation", "Google Ads", "LinkedIn Ads"]
+    }
+    </script>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Analytics: only loads when VITE_ANALYTICS_ENDPOINT is configured -->
-    <script>
-      (function() {
-        var endpoint = "%VITE_ANALYTICS_ENDPOINT%";
-        var websiteId = "%VITE_ANALYTICS_WEBSITE_ID%";
-        if (endpoint && !endpoint.includes("VITE_ANALYTICS") && websiteId && !websiteId.includes("VITE_ANALYTICS")) {
-          var s = document.createElement("script");
-          s.defer = true;
-          s.src = endpoint + "/umami";
-          s.setAttribute("data-website-id", websiteId);
-          document.head.appendChild(s);
-        }
-      })();
-    </script>
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
-
 </html>

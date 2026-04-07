@@ -4,31 +4,42 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+
+// Pages
 import Home from "./pages/Home";
-import Onboarding from "./pages/Onboarding";
-import HabitBuilder from "./pages/HabitBuilder";
-import Storefront from "./pages/Storefront";
-import Dashboard from "./pages/Dashboard";
-import Goals from "./pages/Goals";
-import Habits from "./pages/Habits";
-import Journal from "./pages/Journal";
-import Nudges from "./pages/Nudges";
-import Insights from "./pages/Insights";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+
+// Service Pages
+import ServiceWebsiteDesign from "./pages/services/WebsiteDesign";
+import ServiceCRM from "./pages/services/CRMAutomation";
+import ServiceLeadGen from "./pages/services/LeadGeneration";
+import ServiceSEO from "./pages/services/SEOServices";
+
+// Local SEO Pages
+import LocationKalamazoo from "./pages/locations/Kalamazoo";
+import LocationGrandRapids from "./pages/locations/GrandRapids";
+import LocationSouthwestMichigan from "./pages/locations/SouthwestMichigan";
 
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-       <Route path="/onboarding" component={Onboarding} />
-      <Route path="/habit-builder" component={HabitBuilder} />
-      <Route path={"/dashboard"} component={Dashboard} />
-      <Route path={"/goals"} component={Goals} />
-      <Route path={"/habits"} component={Habits} />
-      <Route path={"/journal"} component={Journal} />
-      <Route path="/nudges" component={Nudges} />
-      <Route path="/storefront" component={Storefront} />
-      <Route path={"/insights"} component={Insights} />
-      <Route path={"/404"} component={NotFound} />
+      <Route path="/" component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
+
+      {/* Service Pages */}
+      <Route path="/services/website-design" component={ServiceWebsiteDesign} />
+      <Route path="/services/crm-automation" component={ServiceCRM} />
+      <Route path="/services/lead-generation" component={ServiceLeadGen} />
+      <Route path="/services/seo-services" component={ServiceSEO} />
+
+      {/* Location Pages */}
+      <Route path="/kalamazoo-marketing-agency" component={LocationKalamazoo} />
+      <Route path="/grand-rapids-marketing-agency" component={LocationGrandRapids} />
+      <Route path="/southwest-michigan-digital-marketing" component={LocationSouthwestMichigan} />
+
+      <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
   );

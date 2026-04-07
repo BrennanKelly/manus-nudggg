@@ -1,3 +1,10 @@
+/*
+ * Lake Michigan Marketing — Global Design System
+ * Design Philosophy: Coastal Modernism
+ * Deep Lake Blue primary, Sunset Amber CTAs, Warm Sand backgrounds
+ * Typography: Playfair Display (display) + DM Sans (body)
+ */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -40,79 +47,63 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand tokens */
+  --color-lake-blue: oklch(0.38 0.12 240);
+  --color-lake-blue-light: oklch(0.55 0.10 230);
+  --color-lake-blue-dark: oklch(0.25 0.10 245);
+  --color-sunset-amber: oklch(0.72 0.18 55);
+  --color-sunset-amber-dark: oklch(0.60 0.20 48);
+  --color-warm-sand: oklch(0.97 0.015 80);
+  --color-driftwood: oklch(0.88 0.025 75);
+  --color-charcoal: oklch(0.18 0.01 250);
+  --color-slate-mid: oklch(0.45 0.02 250);
 }
 
 :root {
-  /* Soft Autumn Color Palette - Warm, Calm, Supportive */
-  --primary: oklch(0.55 0.15 50); /* Warm terracotta/burnt orange */
-  --primary-foreground: oklch(0.98 0.01 85);
-  --sidebar-primary: oklch(0.55 0.15 50);
-  --sidebar-primary-foreground: oklch(0.98 0.01 85);
-  --chart-1: oklch(0.65 0.12 70); /* Muted golden amber */
-  --chart-2: oklch(0.55 0.15 50); /* Terracotta */
-  --chart-3: oklch(0.75 0.08 110); /* Sage green */
-  --chart-4: oklch(0.60 0.10 40); /* Warm rust */
-  --chart-5: oklch(0.50 0.08 90); /* Olive */
-  --radius: 0.75rem;
-  --background: oklch(0.97 0.01 85); /* Warm off-white */
-  --foreground: oklch(0.30 0.02 50); /* Deep warm brown */
-  --card: oklch(0.98 0.01 85); /* Slightly warmer white */
-  --card-foreground: oklch(0.30 0.02 50);
-  --popover: oklch(0.98 0.01 85);
-  --popover-foreground: oklch(0.30 0.02 50);
-  --secondary: oklch(0.75 0.08 110); /* Soft sage green */
-  --secondary-foreground: oklch(0.30 0.02 50);
-  --muted: oklch(0.90 0.02 85); /* Warm beige */
-  --muted-foreground: oklch(0.50 0.02 50);
-  --accent: oklch(0.65 0.12 70); /* Muted golden amber */
-  --accent-foreground: oklch(0.98 0.01 85);
-  --destructive: oklch(0.55 0.18 25); /* Warm rust red */
-  --destructive-foreground: oklch(0.98 0.01 85);
-  --border: oklch(0.85 0.02 85); /* Soft warm gray */
-  --input: oklch(0.85 0.02 85);
-  --ring: oklch(0.55 0.15 50);
-  --sidebar: oklch(0.98 0.01 85);
-  --sidebar-foreground: oklch(0.30 0.02 50);
-  --sidebar-accent: oklch(0.90 0.02 85);
-  --sidebar-accent-foreground: oklch(0.30 0.02 50);
-  --sidebar-border: oklch(0.85 0.02 85);
-  --sidebar-ring: oklch(0.55 0.15 50);
-}
+  --radius: 0.5rem;
 
-.dark {
-  /* Dark mode with warm tones */
-  --primary: oklch(0.60 0.15 50);
-  --primary-foreground: oklch(0.20 0.02 50);
-  --sidebar-primary: oklch(0.60 0.15 50);
-  --sidebar-primary-foreground: oklch(0.20 0.02 50);
-  --background: oklch(0.20 0.02 50);
-  --foreground: oklch(0.95 0.01 85);
-  --card: oklch(0.22 0.02 50);
-  --card-foreground: oklch(0.95 0.01 85);
-  --popover: oklch(0.22 0.02 50);
-  --popover-foreground: oklch(0.95 0.01 85);
-  --secondary: oklch(0.35 0.08 110);
-  --secondary-foreground: oklch(0.95 0.01 85);
-  --muted: oklch(0.30 0.02 50);
-  --muted-foreground: oklch(0.70 0.02 85);
-  --accent: oklch(0.50 0.12 70);
-  --accent-foreground: oklch(0.95 0.01 85);
-  --destructive: oklch(0.55 0.18 25);
-  --destructive-foreground: oklch(0.95 0.01 85);
-  --border: oklch(0.30 0.02 50);
-  --input: oklch(0.30 0.02 50);
-  --ring: oklch(0.60 0.15 50);
-  --chart-1: oklch(0.65 0.12 70);
-  --chart-2: oklch(0.60 0.15 50);
-  --chart-3: oklch(0.75 0.08 110);
-  --chart-4: oklch(0.60 0.10 40);
-  --chart-5: oklch(0.50 0.08 90);
-  --sidebar: oklch(0.22 0.02 50);
-  --sidebar-foreground: oklch(0.95 0.01 85);
-  --sidebar-accent: oklch(0.30 0.02 50);
-  --sidebar-accent-foreground: oklch(0.95 0.01 85);
-  --sidebar-border: oklch(0.30 0.02 50);
-  --sidebar-ring: oklch(0.60 0.15 50);
+  /* Lake Michigan Coastal Modernism palette */
+  --primary: oklch(0.38 0.12 240);
+  --primary-foreground: oklch(0.97 0.01 80);
+  --secondary: oklch(0.94 0.02 75);
+  --secondary-foreground: oklch(0.25 0.06 240);
+  --accent: oklch(0.72 0.18 55);
+  --accent-foreground: oklch(0.10 0.01 50);
+  --muted: oklch(0.93 0.015 80);
+  --muted-foreground: oklch(0.48 0.02 240);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.88 0.02 75);
+  --input: oklch(0.88 0.02 75);
+  --ring: oklch(0.38 0.12 240);
+
+  /* Background: warm sand */
+  --background: oklch(0.98 0.008 80);
+  --foreground: oklch(0.18 0.01 250);
+
+  /* Cards */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.01 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.01 250);
+
+  /* Charts */
+  --chart-1: oklch(0.38 0.12 240);
+  --chart-2: oklch(0.55 0.10 230);
+  --chart-3: oklch(0.72 0.18 55);
+  --chart-4: oklch(0.60 0.20 48);
+  --chart-5: oklch(0.25 0.10 245);
+
+  /* Sidebar */
+  --sidebar: oklch(0.25 0.10 245);
+  --sidebar-foreground: oklch(0.97 0.01 80);
+  --sidebar-primary: oklch(0.72 0.18 55);
+  --sidebar-primary-foreground: oklch(0.10 0.01 50);
+  --sidebar-accent: oklch(0.35 0.10 240);
+  --sidebar-accent-foreground: oklch(0.97 0.01 80);
+  --sidebar-border: oklch(0.32 0.08 240);
+  --sidebar-ring: oklch(0.72 0.18 55);
 }
 
 @layer base {
@@ -121,6 +112,12 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -136,24 +133,11 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -164,16 +148,118 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
+  }
+
+  /* Brand-specific utilities */
+  .btn-amber {
+    background: linear-gradient(135deg, oklch(0.72 0.18 55), oklch(0.60 0.20 48));
+    color: oklch(0.10 0.01 50);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px oklch(0.72 0.18 55 / 0.35);
+  }
+  .btn-amber:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 30px oklch(0.72 0.18 55 / 0.45);
+  }
+
+  .btn-lake {
+    background: oklch(0.38 0.12 240);
+    color: oklch(0.97 0.01 80);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.25s ease;
+  }
+  .btn-lake:hover {
+    background: oklch(0.30 0.12 240);
+    transform: translateY(-1px);
+  }
+
+  .section-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .text-lake {
+    color: oklch(0.38 0.12 240);
+  }
+  .text-amber {
+    color: oklch(0.72 0.18 55);
+  }
+  .bg-lake {
+    background-color: oklch(0.38 0.12 240);
+  }
+  .bg-lake-dark {
+    background-color: oklch(0.25 0.10 245);
+  }
+  .bg-amber {
+    background-color: oklch(0.72 0.18 55);
+  }
+  .bg-sand {
+    background-color: oklch(0.97 0.015 80);
+  }
+  .bg-driftwood {
+    background-color: oklch(0.93 0.02 75);
+  }
+
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+  .font-body {
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Scroll-triggered fade-up animation */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Amber glow effect */
+  .amber-glow {
+    box-shadow: 0 0 40px oklch(0.72 0.18 55 / 0.25);
+  }
+
+  /* Lake blue border accent */
+  .lake-border-left {
+    border-left: 3px solid oklch(0.38 0.12 240);
+    padding-left: 1rem;
+  }
+
+  /* Nav frosted glass */
+  .nav-glass {
+    background: oklch(0.25 0.10 245 / 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Diagonal section clip */
+  .clip-diagonal-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+  }
+  .clip-diagonal-top {
+    clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+    margin-top: -4rem;
+    padding-top: 6rem;
   }
 }
